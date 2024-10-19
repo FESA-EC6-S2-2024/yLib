@@ -147,6 +147,70 @@ As procedures são scripts armazenados no banco de dados que realizam operaçõe
 
 </details>
 
+## Dicionário de dados
+| **Nome Campo**                   | **Origem do Dado(opc)** | **Tipo** | **Default**                   | **Máscara Edição** | **Brancos** | **Tamanho** | **Consistência**                                   |
+|----------------------------------|-------------------------|----------|-------------------------------|--------------------|-------------|-------------|----------------------------------------------------|
+| 1. Ícone de Perfil               | Sistema                 | btn      |                               |                    |             |             |                                                    |
+| 2. Menus Laterais                | Navegação               | btn      |                               |                    |             |             | Abrir e fechar opções de navegação                 |
+| 3. Campo de Busca                | Digitado                | txt      | Search book...                | N                  | N           | 50          | Opcional, página atualizada conforme é preenchida  |
+| 4. Botão "Filter"                | Ação do Usuário         | btn      |                               |                    |             |             |                                                    |
+| 5. Campo Autor                   | Digitado                | txt      | Search author...              | N                  | S           | 30          | Opcional                                           |
+| 6. Campo ISBN                    | Digitado                | txt      | Search ISBN...                | N                  | S           | 13          | Opcional                                           |
+| 7. Campo Editor                  | Digitado                | txt      | Search editor...              | N                  | S           | 30          | Opcional                                           |
+| 8. Campo Categoria/Gênero        | Digitado                | txt      | Search genre/category...      | N                  | S           | 30          | Opcional                                           |
+| 9. Aba "Latest"                  | Ação do Usuário         | btn      |                               |                    |             |             |                                                    |
+| 10. Aba "Popular"                | Ação do Usuário         | btn      |                               |                    |             |             |                                                    |
+| 11. Aba "Reserves"               | Ação do Usuário         | btn      |                               |                    |             |             |                                                    |
+| 12. Botão "Apply Filters"        | Ação do Usuário         | btn      |                               |                    |             |             | Mínimo um dos campos deve ser preenchido           |
+| 13. Livros Listados              | Dados do Banco          | txt, img |                               | N                  | N           | 20          |                                                    |
+| 14. Botão "Register Book"        | Ação do Usuário         | btn      |                               |                    |             |             | Visível para bibliotecário                         |
+| 15. Aba "Manage Books"           | Ação do Usuário         | btn      |                               | N                  |             |             | Visível para bibliotecário                         |
+| 16. Aba "Manage Reserves"        | Ação do Usuário         | btn      |                               | N                  |             |             | Visível para bibliotecário                         |
+| 17. Botão "Delete Book"          | Ação do Usuário         | btn      |                               |                    |             |             | Visível para bibliotecário                         |
+| 18. Botão "Edit Book"            | Ação do Usuário         | btn      |                               |                    |             |             | Visível para bibliotecário                         |
+| 19. Botão Seta                   | Ação do Usuário         | btn      |                               |                    |             |             |                                                    |
+| 20. Imagem da capa               | Dados do Banco          | img      |                               | N                  | N           |             | Não vazio                                          |
+| 21. Título do Livro              | Dados do Banco          | txt      |                               | N                  | N           | 50          | Não vazio                                          |
+| 22. Autor do Livro               | Dados do Banco          | txt      |                               | N                  | N           | 30          | Não vazio                                          |
+| 23. ISBN do Livro                | Dados do Banco          | txt      |                               | N                  | N           |             | Não vazio                                          |
+| 24. Gênero do Livro              | Dados do Banco          | txt      |                               | N                  | N           | 30          | Não vazio                                          |
+| 25. Ano de Publicação do Livro   | Dados do Banco          | txt      |                               | N                  | N           | 30          | Não vazio                                          |
+| 26. Descrição do livro           | Dados do Banco          | txt      |                               | N                  | N           | 1000        | Não vazio                                          |
+| 27. Unidades disponíveis         | Dados do Banco          | int      | Unavailable for reservation.  | N                  | S           | 50          |                                                    |
+| 28. Seção de livros relacionados | Dados do Banco          | txt, img | No recommendations available. | N                  | S           | 5           |                                                    |
+| 29. Botão “Reserve Book”         | Ação do Usuário         | btn      |                               |                    |             |             | Visível apenas para bibliotecários                 |
+| 30. Campo Título                 | Digitado                | txt      |                               | N                  | N           | 50          | Não vazio                                          |
+| 31. Campo ISBN                   | Digitado                | txt      |                               | N                  | N           | 13          | Não vazio                                          |
+| 32. Campo Gênero                 | Digitado                | txt      |                               | N                  | N           | 30          | Não vazio                                          |
+| 33. Campo Autor                  | Digitado                | txt      |                               | N                  | N           | 30          | Não vazio                                          |
+| 34. Campo Ano de Publicação      | Digitado                | txt      |                               | N                  | N           | 30          | Não vazio                                          |
+| 35. Capa do Livro                | Inserção de imagem      | img      |                               | N                  | N           |             | Não vazio                                          |
+| 36. Botão “Register”             | Ação do Usuário         | btn      |                               |                    |             |             |                                                    |
+| 37. Campo Email                  | Digitado                | txt      |                               | N                  | N           | 50          |                                                    |
+| 38. Campo Senha                  | Digitado                | pwd      |                               | S                  | N           | 30          |                                                    |
+| 39. Opção “Forgot Password”      | Ação do Usuário         | btn      |                               |                    |             |             | Recuperação de senha                               |
+| 40. Botão “Login”                | Ação do Usuário         | btn      |                               |                    |             |             |                                                    |
+| 41. Opção “Sign Up”              | Ação do Usuário         | btn      |                               |                    |             |             | Autentificação via Banco de Dados                  |
+| 42. Campo Nome                   | Digitado                | txt      |                               | N                  | N           | 50          | Não vazio                                          |
+| 43. Campo CPF                    | Digitado                | txt      |                               | N                  | N           | 14          | Validação de formato CPF                           |
+| 44. Campo Email                  | Digitado                | txt      |                               | N                  | N           | 50          | Validação de formato                               |
+| 45. Campo Senha                  | Digitado                | pwd      |                               | S                  | N           | 30          | Autentificação via Banco de Dados                  |
+| 46. Campo Confirmar Email        | Digitado                | txt      |                               | N                  | N           | 50          | Validação de formato                               |
+| 47. Campo Confirmar Senha        | Digitado                | pwd      |                               | S                  | N           | 30          | Autentificação via Banco de Dados                  |
+| 48. Upload de Imagem Usuário     | Inserção de imagem      | img      |                               | N                  | S           |             | Opcional                                           |
+| 49. Botão “Register              | Ação do Usuário         | btn      |                               |                    |             |             |                                                    |
+| 50. Código 2FA                   | Digitado                | num      |                               | N                  | N           | 6           | Validação de formato e valor                       |
+| 51. Botão “Verify”               | Ação do Usuário         | btn      |                               |                    |             |             |                                                    |
+| 52. Opção “Recovery code”        | Ação do Usuário         | btn      |                               |                    |             |             | Recuperação de conta 2FA                           |
+| 53. QR Code 2FA                  | Gerado                  | img      |                               |                    |             |             |                                                    |
+| 54. Campo código 2FA             | Digitado                | txt      | XXXXX-XXXXX                   | N                  | S           | 6           | Validação de formato e valor                       |
+| 55. Botão “Verify”               | Ação do Usuário         | btn      |                               |                    |             |             | Autentificação de conta 2FA                        |
+| 56. Botão “Skip”                 | Ação do Usuário         | btn      |                               |                    |             |             |                                                    |
+| 57. Campo “Recovery code”        | Digitado                | txt      | XXXXX-XXXXX                   | N                  | N           | 10          | Validação de formato e valor                       |
+| 58. Botão “Verify”               | Ação do Usuário         | btn      |                               |                    |             |             | Verificar código de recuperação 2FA                |
+
+
+
 ## Como Executar o Projeto
 
 ### Pré-requisitos
