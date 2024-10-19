@@ -81,7 +81,7 @@ As procedures são scripts armazenados no banco de dados que realizam operaçõe
 <details>
 <summary>Página Home c/ pesquisa avançada</summary>
 
-![Home com pesquisa](img/pesquisa_avancada.jpg)
+![Home com pesquisa](img/pesquisa_avancada.png)
 
 </details>
 
@@ -129,7 +129,7 @@ As procedures são scripts armazenados no banco de dados que realizam operaçõe
 <details>
 <summary>Página de Autentificação em 2 Fatores</summary>
 
-![2FA](img/2fa.jpg)
+![2FA](img/2fa.png)
 
 </details>
 
