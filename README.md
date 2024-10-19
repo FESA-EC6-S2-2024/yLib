@@ -1,3 +1,5 @@
+![Logo](img/logo.png)
+
 # yLib - Sistema de Gerenciamento de Biblioteca
 
 Este sistema é projetado para gerenciar as operações de uma biblioteca, incluindo cadastro de usuários, livros, autores, gêneros, categorias e reservas. O sistema oferece funcionalidades para login, consulta avançada e controle de transações.
