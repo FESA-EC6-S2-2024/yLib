@@ -58,7 +58,10 @@ Os DAOs encapsulam o acesso aos dados e executam operações no banco de dados u
 - **CategoryDAO**
 - **LoanDAO**
 
-## Imagens
+## Imagens do Front-end
+É possível acessar o design das telas a partir do projeto feito na plataforma Figma:
+- https://www.figma.com/design/klilonpkdDiKrrugSIVqUb/Biblioteca?node-id=53-838&t=4NRoUJpkUGNS4c3D-1
+
 <details>
 <summary>Página Home c/ pesquisa avançada</summary>
 
@@ -197,18 +200,10 @@ Os DAOs encapsulam o acesso aos dados e executam operações no banco de dados u
 - JDK (Java)
 - IDE Netbeans
 
-### Passos para Configuração
-
-1. **Configurar o Banco de Dados**
-   -
-
-2. **Configurar a String de Conexão**
-   -
-
-3. **Executar o Aplicativo**
-   - Abra o projeto no Netbeans.
-   - Compile e execute o projeto.
-   - Acesse `http://localhost:8080` no navegador.
+### Passos para Execução
+1. Abra o projeto no Netbeans.
+2. Compile e execute o projeto.
+3. Acesse `http://localhost:8080` no navegador.
 
 ### Usuários Administrativos
 - Os detalhes de login para usuários administrativos podem ser configurados diretamente no banco de dados ou através da funcionalidade de cadastro de usuários.
