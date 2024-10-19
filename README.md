@@ -5,15 +5,18 @@ Este sistema é projetado para gerenciar as operações de uma biblioteca, inclu
 ## Funcionalidades
 
 1. **Página Inicial (Home)**
-   - Apresenta uma visão geral das funcionalidades disponíveis.
+   - Visão geral das funcionalidades disponíveis.
+   - Acesso a pesquisa (básica e avançada) e livros disponíveis.
+   - **Bibliotecários:** gerenciamento de acervo e de reservas feitas.
 
 2. **Cadastro de Usuários**
-   - Permite o registro e gerenciamento de usuários.
-   - Possui campos como ID, Tipo de Usuário, Nome, Email, Data de Registro e Senha.
+   - Permite registro e gerenciamento de usuários.
+   - Possui campos como Nome, E-mail, CPF e Senha.
+   - Suporta cadastro e autentificação via dois fatores, com recuperação de conta.
 
 3. **Cadastro de Livros**
-   - Permite a inclusão, atualização, listagem e exclusão de registros de livros.
-   - Cada livro possui campos como ID, Autor, Categoria, Título, ISBN, Ano de Publicação e Imagem.
+   - Permite inclusão, atualização, listagem e exclusão de livros registrados no acervo.
+   - Cada livro possui campos como Autor, Gênero, Título, ISBN, Ano de Publicação e Imagem.
 
 4. **Cadastro de Autores**
    - Funcionalidade para gerenciar dados dos autores.
@@ -24,21 +27,14 @@ Este sistema é projetado para gerenciar as operações de uma biblioteca, inclu
    - Inclui campos como ID e Descrição.
 
 6. **Empréstimos de Livros**
-   - Regista e gerencia os empréstimos de livros.
+   - Registra e gerencia os empréstimos de livros.
    - Contém campos como ID, Usuário, Livro, Data de Empréstimo, Data de Devolução e Data de Retorno.
 
-7. **Controle de Login**
-   - Sistema de autenticação com login e senha.
-   - Opção de cadastro para novos usuários e administração.
-
-8. **Consultas Avançadas**
+7. **Consultas Avançadas**
    - Consultas utilizando filtros e JOINs com múltiplos critérios como data, categoria, estado, cidade, etc.
 
-9. **Controle de Transações**
+8. **Controle de Transações**
    - Implementação de controle de transações nas operações críticas para garantir a integridade dos dados.
-
-10. **Interfaces Gráficas**
-    - Utilização de Tailwind CSS para estilização das páginas, com suporte a modo escuro e responsividade.
 
 ## Estrutura do Projeto
 
@@ -61,21 +57,6 @@ Os DAOs encapsulam o acesso aos dados e executam operações no banco de dados u
 - **AuthorDAO**
 - **CategoryDAO**
 - **LoanDAO**
-
-### Stored Procedures
-As procedures são scripts armazenados no banco de dados que realizam operações como inserção, atualização, exclusão e consulta.
-
-- **spListagem** (genérico para listagem)
-- **spListagemUser**
-- **spListagemBook**
-- **spListagemAuthor**
-- **spListagemCategory**
-- **spListagemLoan**
-- **spInsert_User**, **spUpdate_User**, **spDelete_User**
-- **spInsert_Book**, **spUpdate_Book**, **spDelete_Book**
-- **spInsert_Author**, **spUpdate_Author**, **spDelete_Author**
-- **spInsert_Category**, **spUpdate_Category**, **spDelete_Category**
-- **spInsert_Loan**, **spUpdate_Loan**, **spDelete_Loan**
 
 ## Imagens
 <details>
@@ -143,7 +124,7 @@ As procedures são scripts armazenados no banco de dados que realizam operaçõe
 <details>
 <summary>Página de Recuperação de Conta 2FA</summary>
 
-![Diagrama](img/2fa_recuperacao.png)
+![2FA Recuperação](img/2fa_recuperacao.png)
 
 </details>
 
@@ -210,24 +191,22 @@ As procedures são scripts armazenados no banco de dados que realizam operaçõe
 | 58. Botão “Verify”               | Ação do Usuário         | btn      |                               |                    |             |             | Verificar código de recuperação 2FA                |
 
 
-
 ## Como Executar o Projeto
 
 ### Pré-requisitos
-- .NET Core SDK
-- SQL Server
-- Visual Studio ou Visual Studio Code
+- JDK (Java)
+- IDE Netbeans
 
 ### Passos para Configuração
 
 1. **Configurar o Banco de Dados**
-   - Execute o script SQL fornecido (`database.sql`) no SQL Server para criar as tabelas e stored procedures.
+   -
 
 2. **Configurar a String de Conexão**
-   - No arquivo `appsettings.json`, configure a string de conexão para seu banco de dados SQL Server.
+   -
 
 3. **Executar o Aplicativo**
-   - Abra o projeto no Visual Studio ou Visual Studio Code.
+   - Abra o projeto no Netbeans.
    - Compile e execute o projeto.
    - Acesse `http://localhost:8080` no navegador.
 
