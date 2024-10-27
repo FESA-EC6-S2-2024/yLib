@@ -6,9 +6,10 @@ import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+/**
+ * @author Grupo_7
+ */
 @Repository
 public interface AuthorRepository extends JpaRepository<Author, UUID> {
-
-    // Método para buscar um padrão pelo nome
-    Optional<Author> findByNome(String nome);
+  Optional<Author> findById(int id);
 }

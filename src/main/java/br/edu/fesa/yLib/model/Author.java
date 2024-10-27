@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package br.edu.fesa.yLib.model;
 
 import jakarta.persistence.Basic;
@@ -15,77 +11,74 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * Classe que representa um autor.
- * 
- * @author [Seu Nome]
+ * @author Grupo7
  */
 @Entity
 @Table(name = "TB_AUTHOR", schema = "LIBRARY")
 public class Author implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-    @Id
-    @Basic(optional = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID_AUTHOR")
-    private int id;
+  @Id
+  @Basic(optional = false)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "ID_AUTHOR")
+  private int id;
 
-    @Column(name = "NAME", nullable = false, length = 100)
-    private String name;
+  @Column(name = "NAME", nullable = false, length = 100)
+  private String name;
 
-    @Column(name = "COUNTRY", nullable = false, length = 50)
-    private String country;
+  @Column(name = "COUNTRY", nullable = false, length = 50)
+  private String country;
 
-    @Column(name = "BIRTH_DATE", nullable = false)
-    private LocalDateTime birthDate;
+  @Column(name = "BIRTH_DATE", nullable = false)
+  private LocalDateTime birthDate;
 
-    public Author() {
-    }
+  public Author() {}
 
-    public Author(String name, String country, LocalDateTime birthDate) {
-        this.name = name;
-        this.country = country;
-        this.birthDate = birthDate;
-    }
+  public Author(String name, String country, LocalDateTime birthDate) {
+    this.name = name;
+    this.country = country;
+    this.birthDate = birthDate;
+  }
 
-    public Author(int id, String name, String country, LocalDateTime birthDate) {
-        this.id = id;
-        this.name = name;
-        this.country = country;
-        this.birthDate = birthDate;
-    }
+  public Author(int id, String name, String country, LocalDateTime birthDate) {
+    this.id = id;
+    this.name = name;
+    this.country = country;
+    this.birthDate = birthDate;
+  }
 
-    // Getters and Setters
-    public int getId() {
-        return id;
-    }
+  // Getters and Setters
+  public int getId() {
+    return id;
+  }
 
-    public void setId(int id) {
-        this.id = id;
-    }
+  public void setId(int id) {
+    this.id = id;
+  }
 
-    public String getName() {
-        return name;
-    }
+  public String getName() {
+    return name;
+  }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+  public void setName(String name) {
+    this.name = name;
+  }
 
-    public String getCountry() {
-        return country;
-    }
+  public String getCountry() {
+    return country;
+  }
 
-    public void setCountry(String country) {
-        this.country = country;
-    }
+  public void setCountry(String country) {
+    this.country = country;
+  }
 
-    public LocalDateTime getBirthDate() {
-        return birthDate;
-    }
+  public LocalDateTime getBirthDate() {
+    return birthDate;
+  }
 
-    public void setBirthDate(LocalDateTime birthDate) {
-        this.birthDate = birthDate;
-    }
+  public void setBirthDate(LocalDateTime birthDate) {
+    this.birthDate = birthDate;
+  }
 }
