@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
  * @author Grupo_7
  */
 @Entity
-@Table(name = "TB_USER", schema = "HOTEL")
+@Table(name = "TB_USER", schema = "LIBRARY")
 public class User implements Serializable {
 
   private static final long serialVersionUID = 1L;
@@ -41,8 +41,8 @@ public class User implements Serializable {
   @Column(name = "PASSWORD", nullable = false, length = 255)
   private String password;
 
-  @Column(name = "AUTH_CODE", nullable = true, length = 6)
-  private String authCode;
+  @Column(name = "SECRET", nullable = true, length = 64)
+  private String secret;
 
   @Enumerated(EnumType.STRING)
   @Column(name = "USER_TYPE", nullable = false)
@@ -52,6 +52,13 @@ public class User implements Serializable {
   @Column(name = "USER_GENDER", nullable = false)
   private UserGender userGender;
 
+  // Novos atributos
+  @Column(name = "IMAGE", nullable = true)
+  private String image; // Para armazenar o caminho ou URL da imagem do usuário
+
+  @Column(name = "IS_USING_2FA", nullable = false)
+  private boolean isUsing2FA; // Para indicar se o usuário está usando 2FA
+
   public User() {}
 
   public User(
@@ -59,16 +66,20 @@ public class User implements Serializable {
       String email,
       LocalDateTime registrationDate,
       String password,
-      String authCode,
+      String secret,
       UserType userType,
-      UserGender userGender) {
+      UserGender userGender,
+      String image,
+      boolean isUsing2FA) {
     this.name = name;
     this.email = email;
     this.registrationDate = registrationDate;
     this.password = password;
-    this.authCode = authCode;
+    this.secret = secret;
     this.userType = userType;
     this.userGender = userGender;
+    this.image = image;
+    this.isUsing2FA = isUsing2FA;
   }
 
   public User(
@@ -77,17 +88,21 @@ public class User implements Serializable {
       String email,
       LocalDateTime registrationDate,
       String password,
-      String authCode,
+      String secret,
       UserType userType,
-      UserGender userGender) {
+      UserGender userGender,
+      String image,
+      boolean isUsing2FA) {
     this.id = id;
     this.name = name;
     this.email = email;
     this.registrationDate = registrationDate;
     this.password = password;
-    this.authCode = authCode;
+    this.secret = secret;
     this.userType = userType;
     this.userGender = userGender;
+    this.image = image;
+    this.isUsing2FA = isUsing2FA;
   }
 
   // Getters and Setters
@@ -131,12 +146,12 @@ public class User implements Serializable {
     this.password = password;
   }
 
-  public String getAuthCode() {
-    return authCode;
+  public String getSecret() {
+    return secret;
   }
 
-  public void setAuthCode(String authCode) {
-    this.authCode = authCode;
+  public void setSecret(String secret) {
+    this.secret = secret;
   }
 
   public UserType getUserType() {
@@ -153,5 +168,21 @@ public class User implements Serializable {
 
   public void setUserGender(UserGender userGender) {
     this.userGender = userGender;
+  }
+
+  public String getImage() {
+    return image;
+  }
+
+  public void setImage(String image) {
+    this.image = image;
+  }
+
+  public boolean isUsing2FA() {
+    return isUsing2FA;
+  }
+
+  public void setUsing2FA(boolean isUsing2FA) {
+    this.isUsing2FA = isUsing2FA;
   }
 }

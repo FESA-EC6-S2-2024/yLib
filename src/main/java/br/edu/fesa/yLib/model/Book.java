@@ -54,6 +54,10 @@ public class Book implements Serializable {
   @JoinColumn(name = "ID_EDITOR", referencedColumnName = "ID_EDITOR")
   private Editor editor;
 
+  // Novo atributo para a imagem do livro
+  @Column(name = "IMAGE", nullable = true)
+  private String image; // Para armazenar o caminho ou URL da imagem do livro
+
   public Book() {}
 
   public Book(
@@ -64,7 +68,8 @@ public class Book implements Serializable {
       int availableUnits,
       int totalUnits,
       Author author,
-      Editor editor) {
+      Editor editor,
+      String image) {
     this.ISBN = ISBN;
     this.title = title;
     this.genre = genre;
@@ -73,6 +78,7 @@ public class Book implements Serializable {
     this.totalUnits = totalUnits;
     this.author = author;
     this.editor = editor;
+    this.image = image; // Adicionando o novo atributo
   }
 
   public Book(
@@ -84,7 +90,8 @@ public class Book implements Serializable {
       int availableUnits,
       int totalUnits,
       Author author,
-      Editor editor) {
+      Editor editor,
+      String image) {
     this.id = id;
     this.ISBN = ISBN;
     this.title = title;
@@ -94,9 +101,10 @@ public class Book implements Serializable {
     this.totalUnits = totalUnits;
     this.author = author;
     this.editor = editor;
+    this.image = image; // Adicionando o novo atributo
   }
 
-  // Getters and Setters
+  // Getters e Setters
   public int getId() {
     return id;
   }
@@ -167,5 +175,13 @@ public class Book implements Serializable {
 
   public void setEditor(Editor editor) {
     this.editor = editor;
+  }
+
+  public String getImage() {
+    return image;
+  }
+
+  public void setImage(String image) {
+    this.image = image;
   }
 }

@@ -5,7 +5,7 @@ package br.edu.fesa.yLib.enumerator;
  */
 public enum LoanStatus {
   BORROWED(0),
-  LATE(1); // Adicionei um id para o status LATE também
+  LATE(1);
 
   private final int id;
 
