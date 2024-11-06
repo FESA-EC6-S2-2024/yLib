@@ -8,11 +8,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @author Grupo7
  */
 @Controller
-@RequestMapping("/")
-public class HomeController {
+public class AccessDeniedController {
 
-  @GetMapping({"/", "/home"})
-  public String home() {
-    return "index";
-  }
+    @GetMapping("/access-denied")
+    public String accessDenied() {
+        return "access-denied"; // Nome do template HTML para a página de acesso negado
+    }
 }
+

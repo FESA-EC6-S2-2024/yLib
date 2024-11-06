@@ -30,12 +30,36 @@ public class SecurityConfig {
             (requests) ->
                 requests
                     .requestMatchers("/", "/home", "/css/**", "/images/**")
-                    .permitAll()
+                    .permitAll() // Todos os usuários podem acessar
+                    .requestMatchers("/admin/**")
+                    .hasRole("ADMIN") // Somente usuários com a role "ADMIN" podem acessar /admin/**
+                    .requestMatchers("/loan/**")
+                    .hasAnyRole(
+                        "ADMIN",
+                        "LIBRARIAN") // Somente usuários com "ADMIN" ou "LIBRARIAN" podem acessar /loan/**
                     .anyRequest()
                     .authenticated())
-        .formLogin((form) -> form.loginPage("/login").permitAll())
-        .logout((logout) -> logout.permitAll());
-
+        .formLogin(
+            (form) ->
+                form.loginPage("/login") // Esta é a URL que o Spring Security usa para login
+                    .defaultSuccessUrl("/home", true) // Redireciona após o login
+                    .permitAll())
+        .logout(
+            (logout) ->
+                logout
+                    .logoutUrl("/logout") // Esta é a URL que o Spring Security usa para logout
+                    .logoutSuccessUrl("/home") // Redireciona após o logout
+                    .invalidateHttpSession(true) // Invalida a sessão
+                    .deleteCookies("JSESSIONID") // Remove o cookie de sessão
+                    .permitAll())
+        .sessionManagement(
+            (session) ->
+                session
+                    .maximumSessions(1) // Limita a uma sessão por usuário
+                    .maxSessionsPreventsLogin(true) // Evita que o usuário faça login
+            // novamente se já tiver uma sessão ativa
+            )
+        .accessDeniedPage("/access-denied"); // Página de acesso negado;
     return http.build();
   }
 
