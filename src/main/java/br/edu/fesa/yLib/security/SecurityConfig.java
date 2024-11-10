@@ -36,7 +36,8 @@ public class SecurityConfig {
                     .requestMatchers("/loan/**")
                     .hasAnyRole(
                         "ADMIN",
-                        "LIBRARIAN") // Somente usuários com "ADMIN" ou "LIBRARIAN" podem acessar /loan/**
+                        "LIBRARIAN") // Somente usuários com "ADMIN" ou "LIBRARIAN" podem acessar
+                                     // /loan/**
                     .anyRequest()
                     .authenticated())
         .formLogin(
@@ -59,7 +60,11 @@ public class SecurityConfig {
                     .maxSessionsPreventsLogin(true) // Evita que o usuário faça login
             // novamente se já tiver uma sessão ativa
             )
-        .accessDeniedPage("/access-denied"); // Página de acesso negado;
+        .exceptionHandling()
+        .accessDeniedHandler(
+            (request, response, accessDeniedException) -> {
+              response.sendRedirect("/access-denied");
+            });
     return http.build();
   }
 
