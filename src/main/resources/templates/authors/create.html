@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html data-theme="light" xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Book</title>
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/css/styles.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.14/dist/full.min.css" rel="stylesheet" type="text/css"/>
+</head>
+<body class="bg-purple-50 min-h-screen">
+
+<div th:replace="~{fragments/nav.html}"></div>
+
+<div class="flex items-center justify-center min-h-screen">
+  <div class="w-full max-w-md bg-white shadow-lg rounded-lg p-6">
+    <h2 class="text-2xl font-semibold text-gray-800 mb-6">Create Book</h2>
+    <div th:insert="~{fragments/bookForm(actionUrl='/books/create', buttonText='Create Book')}"></div>
+  </div>
+</div>
+
+</body>
+</html>

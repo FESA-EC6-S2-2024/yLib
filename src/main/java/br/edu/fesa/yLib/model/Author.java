@@ -7,6 +7,11 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Past;
+import jakarta.validation.constraints.Size;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -20,17 +25,22 @@ public class Author implements Serializable {
   private static final long serialVersionUID = 1L;
 
   @Id
-  @Basic(optional = false)
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "ID_AUTHOR")
   private int id;
 
+  @NotBlank(message = "Name is required.")
+  @Size(max = 100, message = "Name must be at most 100 characters.")
   @Column(name = "NAME", nullable = false, length = 100)
   private String name;
 
+  @NotBlank(message = "Country is required.")
+  @Size(max = 50, message = "Country must be at most 50 characters.")
   @Column(name = "COUNTRY", nullable = false, length = 50)
   private String country;
 
+  @NotNull(message = "Birth date is required.")
+  @Past(message = "Birth date must be in the past.")
   @Column(name = "BIRTH_DATE", nullable = false)
   private LocalDateTime birthDate;
 
