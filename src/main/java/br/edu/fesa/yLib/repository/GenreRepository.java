@@ -10,6 +10,5 @@ import org.springframework.stereotype.Repository;
  * @author Grupo_7
  */
 @Repository
-public interface GenreRepository extends JpaRepository<Genre, UUID> {
-  Optional<Genre> findById(int id);
+public interface GenreRepository extends JpaRepository<Genre, Integer> {
 }
