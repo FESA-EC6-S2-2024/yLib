@@ -10,6 +10,6 @@ import org.springframework.stereotype.Repository;
  * @author Grupo_7
  */
 @Repository
-public interface BookRepository extends JpaRepository<Book, UUID> {
+public interface BookRepository extends JpaRepository<Book, Integer> {
   Optional<Book> findById(int id);
 }

@@ -5,6 +5,7 @@ import br.edu.fesa.yLib.repository.BookRepository;
 import br.edu.fesa.yLib.repository.LoanRepository;
 import br.edu.fesa.yLib.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +15,8 @@ import java.util.Optional;
 
 @Controller
 @RequestMapping("/loans")
-public class LoanController {
+@PreAuthorize("hasAnyRole('ADMIN', 'LIBRARIAN')")
+public class LoansController {
 
     @Autowired
     private LoanRepository loanRepository;
@@ -61,8 +63,8 @@ public class LoanController {
         if (existingLoan.isPresent()) {
             Loan loan = existingLoan.get();
             // Update fields as necessary
-            loan.setField1(updatedLoan.getField1());
-            loan.setField2(updatedLoan.getField2());
+            // loan.setField1(updatedLoan.getField1());
+            // loan.setField2(updatedLoan.getField2());
             loanRepository.save(loan);
         }
         return "redirect:/loans"; // Redirect to the loans list after updating

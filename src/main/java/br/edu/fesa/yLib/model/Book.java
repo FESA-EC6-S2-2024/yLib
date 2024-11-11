@@ -9,6 +9,11 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -27,36 +32,46 @@ public class Book implements Serializable {
   @Column(name = "ID_BOOK")
   private int id;
 
+  @NotBlank(message = "ISBN is required.")
+  @Size(max = 20, message = "ISBN should not exceed 20 characters.")
   @Column(name = "ISBN", nullable = false, length = 20, unique = true)
   private String ISBN;
 
+  @NotBlank(message = "Title is required.")
+  @Size(max = 255, message = "Title should not exceed 255 characters.")
   @Column(name = "TITLE", nullable = false, length = 255)
   private String title;
 
+  @NotNull(message = "Genre is required.")
   @ManyToOne(optional = false)
   @JoinColumn(name = "ID_GENRE", referencedColumnName = "ID_GENRE")
   private Genre genre;
 
+  @NotNull(message = "Published year is required.")
   @Column(name = "PUBLISHED_YEAR", nullable = false)
   private LocalDateTime publishedYear;
 
+  @Positive(message = "Available units must be positive.")
   @Column(name = "AVAILABLE_UNITS", nullable = false)
   private int availableUnits;
 
+  @Positive(message = "Total units must be positive.")
   @Column(name = "TOTAL_UNITS", nullable = false)
   private int totalUnits;
 
+  @NotNull(message = "Author is required.")
   @ManyToOne(optional = false)
   @JoinColumn(name = "ID_AUTHOR", referencedColumnName = "ID_AUTHOR")
   private Author author;
 
+  @NotNull(message = "Editor is required.")
   @ManyToOne(optional = false)
   @JoinColumn(name = "ID_EDITOR", referencedColumnName = "ID_EDITOR")
   private Editor editor;
 
-  // Novo atributo para a imagem do livro
-  @Column(name = "IMAGE", nullable = true)
-  private String image; // Para armazenar o caminho ou URL da imagem do livro
+  @Column(name = "IMAGE")
+  private String image;
+
 
   public Book() {}
 
