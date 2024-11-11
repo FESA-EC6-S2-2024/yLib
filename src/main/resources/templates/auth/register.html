@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration</title>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/daisyui@2.14.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/forms@0.5.9/src/index.min.js"></script>
+</head>
+
+<body class="flex items-center justify-center h-screen bg-purple-50">
+<div class="max-w-4xl w-full h-[80vh] bg-white shadow-lg rounded-lg p-8">
+    <form th:action="@{/auth/register}" th:object="${user}" method="post" class="grid grid-cols-2 gap-4">
+        <h2 class="col-span-full text-base font-semibold text-gray-900 mb-6">User Registration</h2>
+
+        <!-- Mensagem para erros globais lançados pela aplicação -->
+        <div class="col-span-full" th:if="${#fields.hasGlobalErrors()}">
+            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4">
+                <p th:each="err : ${#fields.globalErrors()}" th:text="${err}">An unexpected error occurred. Please try again.</p>
+            </div>
+        </div>
+
+        <!-- Name -->
+        <div class="sm:col-span-2">
+            <label for="name" class="block text-sm font-medium text-gray-900">Name</label>
+            <div class="mt-2">
+                <input type="text" th:field="*{name}" id="name"
+                       class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm">
+            </div>
+            <p class="text-red-500 text-sm mt-1" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</p>
+        </div>
+
+        <!-- Email -->
+        <div class="sm:col-span-2">
+            <label for="email" class="block text-sm font-medium text-gray-900">Email</label>
+            <div class="mt-2">
+                <input type="email" th:field="*{email}" id="email" autocomplete="email" required
+                       class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm">
+            </div>
+            <p class="text-red-500 text-sm mt-1" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</p>
+        </div>
+
+        <!-- Confirm Email -->
+        <div class="sm:col-span-2">
+            <label for="confirm-email" class="block text-sm font-medium text-gray-900">Confirm Email</label>
+            <div class="mt-2">
+                <input type="email" th:field="*{confirmEmail}" id="confirm-email" autocomplete="email" required
+                       class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm">
+            </div>
+            <p class="text-red-500 text-sm mt-1" th:if="${#fields.hasErrors('confirmEmail')}" th:errors="*{confirmEmail}">Confirm Email Error</p>
+        </div>
+
+        <!-- Password -->
+        <div class="sm:col-span-2">
+            <label for="password" class="block text-sm font-medium text-gray-900">Password</label>
+            <div class="mt-2">
+                <input type="password" th:field="*{password}" id="password" required
+                       class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm">
+            </div>
+            <p class="text-red-500 text-sm mt-1" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</p>
+        </div>
+
+        <!-- Confirm Password -->
+        <div class="sm:col-span-2">
+            <label for="confirm-password" class="block text-sm font-medium text-gray-900">Confirm Password</label>
+            <div class="mt-2">
+                <input type="password" th:field="*{confirmPassword}" id="confirm-password" required
+                       class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm">
+            </div>
+            <p class="text-red-500 text-sm mt-1" th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}">Confirm Password Error</p>
+        </div>
+
+        <!-- Botão de Enviar -->
+        <div class="col-span-full flex justify-end mt-4">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>
