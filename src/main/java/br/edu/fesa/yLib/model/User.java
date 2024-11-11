@@ -2,15 +2,12 @@ package br.edu.fesa.yLib.model;
 
 import br.edu.fesa.yLib.enumerator.UserGender;
 import br.edu.fesa.yLib.enumerator.UserType;
-import jakarta.persistence.Basic;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -21,168 +18,196 @@ import java.time.LocalDateTime;
 @Table(name = "TB_USER", schema = "LIBRARY")
 public class User implements Serializable {
 
-  private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-  @Id
-  @Basic(optional = false)
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "ID_USER")
-  private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID_USER")
+    private int id;
 
-  @Column(name = "NAME", nullable = false, length = 100)
-  private String name;
+    @NotBlank(message = "Name is required.")
+    @Size(max = 100, message = "Name must be at most 100 characters long.")
+    @Column(name = "NAME", nullable = false, length = 100)
+    private String name;
 
-  @Column(name = "EMAIL", nullable = false, unique = true, length = 100)
-  private String email;
+    @NotBlank(message = "Email is required.")
+    @Email(message = "Email must be valid.")
+    @Size(max = 100, message = "Email must be at most 100 characters long.")
+    @Column(name = "EMAIL", nullable = false, unique = true, length = 100)
+    private String email;
 
-  @Column(name = "REGISTRATION_DATE", nullable = false)
-  private LocalDateTime registrationDate;
+    @Column(name = "REGISTRATION_DATE", nullable = false)
+    private LocalDateTime registrationDate;
 
-  @Column(name = "PASSWORD", nullable = false, length = 255)
-  private String password;
+    @NotBlank(message = "Password is required.")
+    @Size(min = 8, max = 255, message = "Password must be between 8 and 255 characters long.")
+    @Column(name = "PASSWORD", nullable = false, length = 255)
+    private String password;
 
-  @Column(name = "SECRET", nullable = true, length = 64)
-  private String secret;
+    @Size(max = 64, message = "Secret must be at most 64 characters long.")
+    @Column(name = "SECRET", nullable = true, length = 64)
+    private String secret;
 
-  @Enumerated(EnumType.STRING)
-  @Column(name = "USER_TYPE", nullable = false)
-  private UserType userType;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "USER_TYPE", nullable = false)
+    private UserType userType;
 
-  @Enumerated(EnumType.STRING)
-  @Column(name = "USER_GENDER", nullable = false)
-  private UserGender userGender;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "USER_GENDER", nullable = false)
+    private UserGender userGender;
 
-  // Novos atributos
-  @Column(name = "IMAGE", nullable = true)
-  private String image; // Para armazenar o caminho ou URL da imagem do usuário
+    @Column(name = "IMAGE", nullable = true)
+    private String image;
 
-  @Column(name = "IS_USING_2FA", nullable = false)
-  private boolean isUsing2FA; // Para indicar se o usuário está usando 2FA
+    @NotNull(message = "2FA usage indication is required.")
+    @Column(name = "IS_USING_2FA", nullable = false)
+    private boolean isUsing2FA;
 
-  public User() {}
+    @Transient
+    private String confirmEmail;
 
-  public User(
-      String name,
-      String email,
-      LocalDateTime registrationDate,
-      String password,
-      String secret,
-      UserType userType,
-      UserGender userGender,
-      String image,
-      boolean isUsing2FA) {
-    this.name = name;
-    this.email = email;
-    this.registrationDate = registrationDate;
-    this.password = password;
-    this.secret = secret;
-    this.userType = userType;
-    this.userGender = userGender;
-    this.image = image;
-    this.isUsing2FA = isUsing2FA;
-  }
+    @Transient
+    private String confirmPassword;
 
-  public User(
-      int id,
-      String name,
-      String email,
-      LocalDateTime registrationDate,
-      String password,
-      String secret,
-      UserType userType,
-      UserGender userGender,
-      String image,
-      boolean isUsing2FA) {
-    this.id = id;
-    this.name = name;
-    this.email = email;
-    this.registrationDate = registrationDate;
-    this.password = password;
-    this.secret = secret;
-    this.userType = userType;
-    this.userGender = userGender;
-    this.image = image;
-    this.isUsing2FA = isUsing2FA;
-  }
+    public User() {
+    }
 
-  // Getters and Setters
-  public int getId() {
-    return id;
-  }
+    public User(
+            String name,
+            String email,
+            String password,
+            String secret,
+            UserType userType,
+            UserGender userGender,
+            String image,
+            boolean isUsing2FA) {
+        this.name = name;
+        this.email = email;
+        this.registrationDate = LocalDateTime.now();
+        this.password = password;
+        this.secret = secret;
+        this.userType = userType;
+        this.userGender = userGender;
+        this.image = image;
+        this.isUsing2FA = isUsing2FA;
+    }
 
-  public void setId(int id) {
-    this.id = id;
-  }
+    public User(
+            int id,
+            String name,
+            String email,
+            String password,
+            String secret,
+            UserType userType,
+            UserGender userGender,
+            String image,
+            boolean isUsing2FA) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.registrationDate = LocalDateTime.now();
+        this.password = password;
+        this.secret = secret;
+        this.userType = userType;
+        this.userGender = userGender;
+        this.image = image;
+        this.isUsing2FA = isUsing2FA;
+    }
 
-  public String getName() {
-    return name;
-  }
+    // Getters and Setters
+    public int getId() {
+        return id;
+    }
 
-  public void setName(String name) {
-    this.name = name;
-  }
+    public void setId(int id) {
+        this.id = id;
+    }
 
-  public String getEmail() {
-    return email;
-  }
+    public String getName() {
+        return name;
+    }
 
-  public void setEmail(String email) {
-    this.email = email;
-  }
+    public void setName(String name) {
+        this.name = name;
+    }
 
-  public LocalDateTime getRegistrationDate() {
-    return registrationDate;
-  }
+    public String getEmail() {
+        return email;
+    }
 
-  public void setRegistrationDate(LocalDateTime registrationDate) {
-    this.registrationDate = registrationDate;
-  }
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-  public String getPassword() {
-    return password;
-  }
+    public LocalDateTime getRegistrationDate() {
+        return registrationDate;
+    }
 
-  public void setPassword(String password) {
-    this.password = password;
-  }
+    public void setRegistrationDate(LocalDateTime registrationDate) {
+        this.registrationDate = registrationDate;
+    }
 
-  public String getSecret() {
-    return secret;
-  }
+    public String getPassword() {
+        return password;
+    }
 
-  public void setSecret(String secret) {
-    this.secret = secret;
-  }
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-  public UserType getUserType() {
-    return userType;
-  }
+    public String getSecret() {
+        return secret;
+    }
 
-  public void setUserType(UserType userType) {
-    this.userType = userType;
-  }
+    public void setSecret(String secret) {
+        this.secret = secret;
+    }
 
-  public UserGender getUserGender() {
-    return userGender;
-  }
+    public UserType getUserType() {
+        return userType;
+    }
 
-  public void setUserGender(UserGender userGender) {
-    this.userGender = userGender;
-  }
+    public void setUserType(UserType userType) {
+        this.userType = userType;
+    }
 
-  public String getImage() {
-    return image;
-  }
+    public UserGender getUserGender() {
+        return userGender;
+    }
 
-  public void setImage(String image) {
-    this.image = image;
-  }
+    public void setUserGender(UserGender userGender) {
+        this.userGender = userGender;
+    }
 
-  public boolean isUsing2FA() {
-    return isUsing2FA;
-  }
+    public String getImage() {
+        return image;
+    }
 
-  public void setUsing2FA(boolean isUsing2FA) {
-    this.isUsing2FA = isUsing2FA;
-  }
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public boolean isUsing2FA() {
+        return isUsing2FA;
+    }
+
+    public void setUsing2FA(boolean isUsing2FA) {
+        this.isUsing2FA = isUsing2FA;
+    }
+
+    public String getConfirmEmail() {
+        return confirmEmail;
+    }
+
+    public void setConfirmEmail(String confirmEmail) {
+        this.confirmEmail = confirmEmail;
+    }
+
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
+    }
 }
