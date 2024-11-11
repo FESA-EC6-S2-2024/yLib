@@ -10,6 +10,5 @@ import org.springframework.stereotype.Repository;
  * @author Grupo_7
  */
 @Repository
-public interface EditorRepository extends JpaRepository<Editor, UUID> {
-  Optional<Editor> findById(int id);
+public interface EditorRepository extends JpaRepository<Editor, Integer> {
 }

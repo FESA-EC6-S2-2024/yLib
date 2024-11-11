@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html data-theme="light" lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editor Management</title>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/styles.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.14/dist/full.min.css" rel="stylesheet" type="text/css"/>
+</head>
+<body class="bg-purple-50">
+
+<div th:replace="~{fragments/nav.html}"></div>
+
+<div class="flex items-center justify-center min-h-screen">
+    <div class="w-full max-w-4xl bg-white shadow-lg rounded-lg p-6">
+        <div class="flex justify-between items-center mb-6">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-6">Editors List</h2>
+            <a th:href="@{/editors/create}" class="bg-purple-600 text-white py-2 px-4 rounded-lg mb-4">Create New Editor</a>
+        </div>
+        <div class="overflow-x-auto">
+            <table class="w-full text-left bg-white rounded-lg shadow-lg">
+                <thead class="bg-purple-200 text-purple-900">
+                <tr>
+                    <th class="px-4 py-2">Name</th>
+                    <th class="px-4 py-2">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="editor : ${editors}" class="hover:bg-purple-100">
+                    <td class="border-t px-4 py-2" th:text="${editor.name}">Editor Name</td>
+                    <td class="border-t px-4 py-2">
+                        <a th:href="@{/editors/edit/{id}(id=${editor.id})}"
+                           class="btn btn-sm bg-blue-500 text-white rounded-lg hover:bg-blue-600">Edit</a>
+                        <a th:href="@{/editors/delete/{id}(id=${editor.id})}" onclick="return confirm('Are you sure?')"
+                           class="btn btn-sm bg-red-500 text-white rounded-lg hover:bg-red-600">Delete</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
