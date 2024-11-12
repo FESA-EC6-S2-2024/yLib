@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.time.LocalDateTime;
+
 /**
  * @author Grupo7
  */
@@ -61,6 +63,7 @@ public class AuthenticationController {
 
         try {
             user.setUserType(UserType.CLIENT);
+            user.setRegistrationDate(LocalDateTime.now());
             userService.registerUser(user);
         } catch (UserWithEmailAlreadyExistsException e) {
             result.rejectValue("email", "error.user", "Email already exists");
