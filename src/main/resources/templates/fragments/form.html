@@ -1,0 +1,7 @@
+<div th:fragment="form (actionUrl, formObject, ctt)">
+    <form th:action="${actionUrl}" th:object="${__${formObject}__}" method="post">
+        <div th:replace="${ctt}">
+            <p>Layout content</p>
+        </div>
+    </form>
+</div>

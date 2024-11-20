@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html data-theme="light" th:fragment="layout (title, content)" xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <!-- Metadata -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:replace="${title}">Layout Title</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+
+    <!-- Styles -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.14/dist/full.min.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body class="h-screen flex flex-col bg-purple-50">
+    <!-- Navigation -->
+    <div th:replace="~{fragments/navbar.html}"></div>
+
+    <!-- Content -->
+    <div th:replace="${content}">
+        <p>Layout content</p>
+    </div>
+</body>
+</html>
