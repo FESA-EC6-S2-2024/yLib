@@ -13,42 +13,43 @@ import java.util.Optional;
 @Service
 public class BookService {
 
-    @Autowired
-    private BookRepository bookRepository;
+  @Autowired
+  private BookRepository bookRepository;
 
-    public List<Book> findAll() {
-        return bookRepository.findAll();
-    }
+  public List<Book> findAll() {
+    return bookRepository.findAll();
+  }
 
-    public Optional<Book> findById(int id) {
-        return bookRepository.findById(id);
-    }
+  public Optional<Book> findById(int id) {
+    return bookRepository.findById(id);
+  }  
 
-    @Transactional
-    public Book createBook(@Valid Book book) {
-        return bookRepository.save(book);
-    }
+  @Transactional
+  public Book createBook(@Valid Book book) {
 
-    @Transactional
-    public Book updateBook(int id, @Valid Book updatedBook) {
-        Book existingBook = bookRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Book not found"));
+    return bookRepository.save(book);
+  }
 
-        existingBook.setISBN(updatedBook.getISBN());
-        existingBook.setTitle(updatedBook.getTitle());
-        existingBook.setGenre(updatedBook.getGenre());
-        existingBook.setPublishedYear(updatedBook.getPublishedYear());
-        existingBook.setAvailableUnits(updatedBook.getAvailableUnits());
-        existingBook.setTotalUnits(updatedBook.getTotalUnits());
-        existingBook.setAuthor(updatedBook.getAuthor());
-        existingBook.setEditor(updatedBook.getEditor());
-        existingBook.setImage(updatedBook.getImage());
+  @Transactional
+  public Book updateBook(int id, @Valid Book updatedBook) {
+    Book existingBook = bookRepository.findById(id)
+        .orElseThrow(() -> new IllegalArgumentException("Book not found"));
 
-        return bookRepository.save(existingBook);
-    }
+    existingBook.setISBN(updatedBook.getISBN());
+    existingBook.setTitle(updatedBook.getTitle());
+    existingBook.setGenre(updatedBook.getGenre());
+    existingBook.setPublishedYear(updatedBook.getPublishedYear());
+    existingBook.setAvailableUnits(updatedBook.getAvailableUnits());
+    existingBook.setTotalUnits(updatedBook.getTotalUnits());
+    existingBook.setAuthor(updatedBook.getAuthor());
+    existingBook.setEditor(updatedBook.getEditor());
+    existingBook.setImage(updatedBook.getImage());
 
-    @Transactional
-    public void deleteBook(int id) {
-        bookRepository.deleteById(id);
-    }
+    return bookRepository.save(existingBook);
+  }
+
+  @Transactional
+  public void deleteBook(int id) {
+    bookRepository.deleteById(id);
+  }
 }

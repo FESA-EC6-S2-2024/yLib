@@ -1,22 +1,233 @@
 <!DOCTYPE html>
-<html data-theme="light" xmlns:th="http://www.thymeleaf.org" lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html th:replace="~{layouts/base.html :: layout(~{::title}, ~{::section})}">
+  <head>
     <title>Edit Book</title>
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    <link rel="stylesheet" href="/css/styles.css">
-</head>
-<body class="bg-purple-50 min-h-screen">
-
-<div th:replace="~{fragments/nav.html}"></div>
-
-<div class="flex items-center justify-center min-h-screen">
-    <div class="w-full max-w-md bg-white shadow-lg rounded-lg p-6">
+    <style>
+      /* Optional: additional styles to manage form padding */
+      .form-section {
+        padding-top: 1.5rem; /* Adjust top padding */
+      }
+    </style>
+  </head>
+  <body>
+    <section class="h-full flex items-center justify-center">
+      <div class="w-full max-w-4xl bg-white shadow-lg rounded-lg p-6">
         <h2 class="text-2xl font-semibold text-gray-800 mb-6">Edit Book</h2>
-        <div th:insert="~{fragments/bookForm(actionUrl='/books/edit/' + ${book.id}, buttonText='Save Changes')}"></div>
-    </div>
-</div>
+        <div
+          th:replace="~{fragments/form :: form('/books/edit/' + ${book.id}, 'book', ~{::#content})}"
+        >
+          <div id="content" class="form-section">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-6">
+              <!-- Column 1 -->
+              <div>
+                <div class="mb-4 form-control w-full">
+                  <div class="label">
+                    <span class="label-text">ISBN</span>
+                  </div>
+                  <input
+                    type="text"
+                    th:field="*{ISBN}"
+                    id="ISBN"
+                    class="input input-bordered w-full"
+                  />
+                  <p
+                    class="text-red-500 text-xs mt-1"
+                    th:if="${#fields.hasErrors('ISBN')}"
+                    th:errors="*{ISBN}"
+                  >
+                    ISBN error
+                  </p>
+                </div>
 
-</body>
+                <div class="mb-4 form-control w-full">
+                  <div class="label">
+                    <span class="label-text">Title</span>
+                  </div>
+                  <input
+                    type="text"
+                    th:field="*{title}"
+                    id="title"
+                    class="input input-bordered w-full"
+                  />
+                  <p
+                    class="text-red-500 text-xs mt-1"
+                    th:if="${#fields.hasErrors('title')}"
+                    th:errors="*{title}"
+                  >
+                    Title error
+                  </p>
+                </div>
+
+                <div class="mb-4 form-control w-full">
+                  <div class="label">
+                    <span class="label-text">Genre</span>
+                  </div>
+                  <select
+                    th:field="*{genre}"
+                    id="genre"
+                    class="input input-bordered w-full"
+                  >
+                    <option value="" selected>Select a genre</option>
+                    <option
+                      th:each="genre : ${genres}"
+                      th:value="${genre.id}"
+                      th:text="${genre.description}"
+                    ></option>
+                  </select>
+                  <p
+                    class="text-red-500 text-xs mt-1"
+                    th:if="${#fields.hasErrors('genre')}"
+                    th:errors="*{genre}"
+                  >
+                    Genre error
+                  </p>
+                </div>
+
+                <div class="mb-4 form-control w-full">
+                  <div class="label">
+                    <span class="label-text">Published Year</span>
+                  </div>
+                  <input
+                    type="date"
+                    th:field="*{publishedYear}"
+                    id="publishedYear"
+                    class="input input-bordered w-full"
+                  />
+                  <p
+                    class="text-red-500 text-xs mt-1"
+                    th:if="${#fields.hasErrors('publishedYear')}"
+                    th:errors="*{publishedYear}"
+                  >
+                    Published Year error
+                  </p>
+                </div>
+              </div>
+
+              <!-- Column 2 -->
+              <div>
+                <div class="mb-4 form-control w-full">
+                  <div class="label">
+                    <span class="label-text">Available Units</span>
+                  </div>
+                  <input
+                    type="number"
+                    th:field="*{availableUnits}"
+                    id="availableUnits"
+                    class="input input-bordered w-full"
+                  />
+                  <p
+                    class="text-red-500 text-xs mt-1"
+                    th:if="${#fields.hasErrors('availableUnits')}"
+                    th:errors="*{availableUnits}"
+                  >
+                    Available Units error
+                  </p>
+                </div>
+
+                <div class="mb-4 form-control w-full">
+                  <div class="label">
+                    <span class="label-text">Total Units</span>
+                  </div>
+                  <input
+                    type="number"
+                    th:field="*{totalUnits}"
+                    id="totalUnits"
+                    class="input input-bordered w-full"
+                  />
+                  <p
+                    class="text-red-500 text-xs mt-1"
+                    th:if="${#fields.hasErrors('totalUnits')}"
+                    th:errors="*{totalUnits}"
+                  >
+                    Total Units error
+                  </p>
+                </div>
+
+                <div class="mb-4 form-control w-full">
+                  <div class="label">
+                    <span class="label-text">Author</span>
+                  </div>
+                  <select
+                    th:field="*{author}"
+                    id="author"
+                    class="input input-bordered w-full"
+                  >
+                    <option value="" selected>Select an author</option>
+                    <option
+                      th:each="author : ${authors}"
+                      th:value="${author.id}"
+                      th:text="${author.name}"
+                    ></option>
+                  </select>
+                  <p
+                    class="text-red-500 text-xs mt-1"
+                    th:if="${#fields.hasErrors('author')}"
+                    th:errors="*{author}"
+                  >
+                    Author error
+                  </p>
+                </div>
+
+                <div class="mb-4 form-control w-full">
+                  <div class="label">
+                    <span class="label-text">Editor</span>
+                  </div>
+                  <select
+                    th:field="*{editor}"
+                    id="editor"
+                    class="input input-bordered w-full"
+                  >
+                    <option value="" selected>Select an editor</option>
+                    <option
+                      th:each="editor : ${editors}"
+                      th:value="${editor.id}"
+                      th:text="${editor.name}"
+                    ></option>
+                  </select>
+                  <p
+                    class="text-red-500 text-xs mt-1"
+                    th:if="${#fields.hasErrors('editor')}"
+                    th:errors="*{editor}"
+                  >
+                    Editor error
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Synopsis Section -->
+            <div class="mb-4 form-control w-full">
+              <div class="label">
+                <span class="label-text">Synopsis</span>
+              </div>
+              <textarea
+                id="synopsis"
+                name="synopsis"
+                th:field="*{synopsis}"
+                class="textarea textarea-bordered h-24"
+                placeholder="Description..."
+              ></textarea>
+              <p
+                class="text-red-500 text-xs mt-1"
+                th:if="${#fields.hasErrors('synopsis')}"
+                th:errors="*{synopsis}"
+              >
+                Synopsis error
+              </p>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="flex justify-end mt-6">
+              <button
+                type="submit"
+                class="w-full py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-600 font-bold"
+              >
+                <span>Submit</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
 </html>

@@ -15,7 +15,10 @@ import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.util.Date;
+
+import org.hibernate.validator.constraints.Length;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * @author Grupo7
@@ -49,7 +52,8 @@ public class Book implements Serializable {
 
   @NotNull(message = "Published year is required.")
   @Column(name = "PUBLISHED_YEAR", nullable = false)
-  private LocalDateTime publishedYear;
+  @DateTimeFormat(pattern = "yyyy-MM-dd")
+  private Date publishedYear;
 
   @Positive(message = "Available units must be positive.")
   @Column(name = "AVAILABLE_UNITS", nullable = false)
@@ -72,14 +76,18 @@ public class Book implements Serializable {
   @Column(name = "IMAGE")
   private String image;
 
+  @Column(name = "SYNOPSIS", length = 2000)
+  @Length(max = 2000, message = "Synopsis can not exceed 2000 characters")
+  private String synopsis;
 
-  public Book() {}
+  public Book() {
+  }
 
   public Book(
       String ISBN,
       String title,
       Genre genre,
-      LocalDateTime publishedYear,
+      Date publishedYear,
       int availableUnits,
       int totalUnits,
       Author author,
@@ -101,7 +109,7 @@ public class Book implements Serializable {
       String ISBN,
       String title,
       Genre genre,
-      LocalDateTime publishedYear,
+      Date publishedYear,
       int availableUnits,
       int totalUnits,
       Author author,
@@ -152,11 +160,11 @@ public class Book implements Serializable {
     this.genre = genre;
   }
 
-  public LocalDateTime getPublishedYear() {
+  public Date getPublishedYear() {
     return publishedYear;
   }
 
-  public void setPublishedYear(LocalDateTime publishedYear) {
+  public void setPublishedYear(Date publishedYear) {
     this.publishedYear = publishedYear;
   }
 
@@ -198,5 +206,13 @@ public class Book implements Serializable {
 
   public void setImage(String image) {
     this.image = image;
+  }
+
+  public String getSynopsis() {
+    return synopsis;
+  }
+
+  public void setSynopsis(String synopsis) {
+    this.synopsis = synopsis;
   }
 }
