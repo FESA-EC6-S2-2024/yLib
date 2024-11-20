@@ -12,7 +12,6 @@ public class CustomUserDetails implements UserDetails {
     private String email;
     private String password;
     private String name;
-    private String initials;
     private String image;
     private boolean isUsing2FA;
 
@@ -103,6 +102,6 @@ public class CustomUserDetails implements UserDetails {
         String initials = firstInitial + lastInitial;
 
         // Constrói as iniciais
-        return "https://ui-avatars.com/api/?name=" + initials + "&background=random&size=128";
+        return "https://ui-avatars.com/api/?name=" + initials + "&background=d3abff&color=fff&size=128";
     }
 }
