@@ -7,10 +7,13 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * @author Grupo7
@@ -40,17 +43,19 @@ public class Loan implements Serializable {
   @JoinColumn(name = "ID_USER", referencedColumnName = "ID_USER")
   private User user;
 
-  @ManyToOne(optional = false)
-  @JoinColumn(name = "ID_BOOK", referencedColumnName = "ID_BOOK")
-  private Book book;
+  // Many-to-many relationship with Book (one loan can have multiple books)
+  @ManyToMany
+  @JoinTable(name = "TB_LOAN_BOOK", joinColumns = @JoinColumn(name = "ID_LOAN"), inverseJoinColumns = @JoinColumn(name = "ID_BOOK"))
+  private List<Book> books;
 
-  public Loan() {}
+  public Loan() {
+  }
 
-  public Loan(LocalDateTime dueDate, LocalDateTime loanDate, User user, Book book) {
+  public Loan(LocalDateTime dueDate, LocalDateTime loanDate, User user, List<Book> books) {
     this.dueDate = dueDate;
     this.loanDate = loanDate;
     this.user = user;
-    this.book = book;
+    this.books = books;
   }
 
   public Loan(
@@ -59,13 +64,13 @@ public class Loan implements Serializable {
       LocalDateTime returnDate,
       LocalDateTime loanDate,
       User user,
-      Book book) {
+      List<Book> books) {
     this.id = id;
     this.dueDate = dueDate;
     this.returnDate = returnDate;
     this.loanDate = loanDate;
     this.user = user;
-    this.book = book;
+    this.books = books;
   }
 
   // Getters and Setters
@@ -109,11 +114,11 @@ public class Loan implements Serializable {
     this.user = user;
   }
 
-  public Book getBook() {
-    return book;
+  public List<Book> getBooks() {
+    return books;
   }
 
-  public void setBook(Book book) {
-    this.book = book;
+  public void setBooks(List<Book> books) {
+    this.books = books;
   }
 }

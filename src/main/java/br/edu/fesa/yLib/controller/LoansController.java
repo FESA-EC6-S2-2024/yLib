@@ -1,78 +1,71 @@
 package br.edu.fesa.yLib.controller;
 
 import br.edu.fesa.yLib.model.Loan;
-import br.edu.fesa.yLib.repository.BookRepository;
-import br.edu.fesa.yLib.repository.LoanRepository;
-import br.edu.fesa.yLib.repository.UserRepository;
+import br.edu.fesa.yLib.service.BookService;
+import br.edu.fesa.yLib.service.LoanService;
+import br.edu.fesa.yLib.service.UserService;
+import jakarta.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Optional;
+import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 @RequestMapping("/loans")
-@PreAuthorize("hasAnyRole('ADMIN', 'LIBRARIAN')")
 public class LoansController {
 
-    @Autowired
-    private LoanRepository loanRepository;
+  @Autowired
+  private LoanService loanService;
 
-    @Autowired
-    private UserRepository userRepository;
+  @Autowired
+  private UserService userService;
 
-    @Autowired
-    private BookRepository bookRepository;
+  @Autowired
+  private BookService bookService;
 
-    @GetMapping
-    public String getLoans(Model model) {
-        List<Loan> loans = loanRepository.findAll();
-        model.addAttribute("loans", loans);
-        return "loan/list"; // Return the view name for listing loans
+  @GetMapping
+  public String listLoans(Model model) {
+    model.addAttribute("loans", loanService.findAll());
+    return "loans/list";
+  }
+
+  @GetMapping("/create")
+  public String showCreateForm(Model model) {
+    model.addAttribute("loan", new Loan());
+    return "loans/create";
+  }
+
+  @PostMapping("/create")
+  public String createLoan(@Valid @ModelAttribute Loan loan, BindingResult result) {
+    if (result.hasErrors()) {
+      return "loans/create";
     }
+    loanService.save(loan);
+    return "redirect:/loans";
+  }
 
-    @GetMapping("/new")
-    public String showCreateForm(Model model) {
-        model.addAttribute("loan", new Loan());
-        return "loan/form"; // Return the view name for the loan creation form
-    }
+  @GetMapping("/edit/{id}")
+  public String showEditForm(@PathVariable int id, Model model) {
+    model.addAttribute("editor", loanService.findById(id));
+    return "loans/edit";
+  }
 
-    @PostMapping
-    public String create(@ModelAttribute Loan loan) {
-        loanRepository.save(loan);
-        return "redirect:/loans"; // Redirect to the loans list after creation
+  @PostMapping("/edit/{id}")
+  public String updateLoan(@PathVariable int id, @Valid @ModelAttribute Loan loan, BindingResult result) {
+    if (result.hasErrors()) {
+      return "loans/edit";
     }
+    loanService.update(id, loan);
+    return "redirect:/loans";
+  }
 
-    @GetMapping("/edit/{id}")
-    public String showUpdateForm(@PathVariable int id, Model model) {
-        Optional<Loan> loan = loanRepository.findById(id);
-        if (loan.isPresent()) {
-            model.addAttribute("loan", loan.get());
-            return "loan/form"; // Return the view name for the edit form
-        } else {
-            return "redirect:/loans"; // Redirect if loan not found
-        }
-    }
-
-    @PostMapping("/{id}")
-    public String update(@PathVariable int id, @ModelAttribute Loan updatedLoan) {
-        Optional<Loan> existingLoan = loanRepository.findById(id);
-        if (existingLoan.isPresent()) {
-            Loan loan = existingLoan.get();
-            // Update fields as necessary
-            // loan.setField1(updatedLoan.getField1());
-            // loan.setField2(updatedLoan.getField2());
-            loanRepository.save(loan);
-        }
-        return "redirect:/loans"; // Redirect to the loans list after updating
-    }
-
-    @GetMapping("/delete/{id}")
-    public String delete(@PathVariable int id) {
-        loanRepository.deleteById(id);
-        return "redirect:/loans"; // Redirect to the loans list after deletion
-    }
+  @GetMapping("/delete/{id}")
+  public String deleteLoan(@PathVariable int id) {
+    loanService.delete(id);
+    return "redirect:/loans";
+  }
 }

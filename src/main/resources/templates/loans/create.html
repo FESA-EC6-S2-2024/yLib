@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html th:replace="~{layouts/base.html :: layout(~{::title}, ~{::section})}">
+  <head>
+    <title>Create Loan</title>
+    <style>
+      /* Optional: additional styles to manage form padding */
+      .form-section {
+        padding-top: 1.5rem; /* Adjust top padding */
+      }
+    </style>
+  </head>
+  <body>
+    <section class="h-full flex items-center justify-center">
+      <div class="w-full max-w-4xl bg-white shadow-lg rounded-lg p-6">
+        <h2 class="text-2xl font-semibold text-gray-800 mb-6">Create Loan</h2>
+        <div
+          th:replace="~{fragments/form :: form('/loans/create', 'loan', ~{::#content})}"
+        >
+          <div id="content" class="form-section">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-6">
+              <!-- Column 1 -->
+              <div>
+                <!-- User Selection -->
+                <div class="mb-4 form-control w-full">
+                  <div class="label">
+                    <span class="label-text">User</span>
+                  </div>
+                  <select
+                    th:field="*{user.id}"
+                    id="user"
+                    class="input input-bordered w-full"
+                  >
+                    <option value="-1" selected>Select a user</option>
+                    <option
+                      th:each="user : ${users}"
+                      th:value="${user.id}"
+                      th:text="${user.name}"
+                    ></option>
+                  </select>
+                  <p
+                    class="text-red-500 text-xs mt-1"
+                    th:if="${#fields.hasErrors('user')}"
+                    th:errors="*{user}"
+                  >
+                    User error
+                  </p>
+                </div>
+
+                <!-- Loan Date -->
+                <div class="mb-4 form-control w-full">
+                  <div class="label">
+                    <span class="label-text">Loan Date</span>
+                  </div>
+                  <input
+                    type="date"
+                    th:field="*{loanDate}"
+                    id="loanDate"
+                    class="input input-bordered w-full"
+                  />
+                  <p
+                    class="text-red-500 text-xs mt-1"
+                    th:if="${#fields.hasErrors('loanDate')}"
+                    th:errors="*{loanDate}"
+                  >
+                    Loan Date error
+                  </p>
+                </div>
+
+                <!-- Due Date -->
+                <div class="mb-4 form-control w-full">
+                  <div class="label">
+                    <span class="label-text">Due Date</span>
+                  </div>
+                  <input
+                    type="date"
+                    th:field="*{dueDate}"
+                    id="dueDate"
+                    class="input input-bordered w-full"
+                  />
+                  <p
+                    class="text-red-500 text-xs mt-1"
+                    th:if="${#fields.hasErrors('dueDate')}"
+                    th:errors="*{dueDate}"
+                  >
+                    Due Date error
+                  </p>
+                </div>
+              </div>
+
+              <!-- Column 2 -->
+              <div>
+                <!-- Books Selection -->
+                <div class="mb-4 form-control w-full">
+                  <div class="label">
+                    <span class="label-text">Books</span>
+                  </div>
+                  <select
+                    th:field="*{books}"
+                    id="books"
+                    class="input input-bordered w-full"
+                    multiple="multiple"
+                  >
+                    <option value="-1" disabled>Select books for the loan</option>
+                    <option
+                      th:each="book : ${books}"
+                      th:value="${book.id}"
+                      th:text="${book.title}"
+                    ></option>
+                  </select>
+                  <p
+                    class="text-red-500 text-xs mt-1"
+                    th:if="${#fields.hasErrors('books')}"
+                    th:errors="*{books}"
+                  >
+                    Books error
+                  </p>
+                </div>
+
+                <!-- Return Date (optional) -->
+                <div class="mb-4 form-control w-full">
+                  <div class="label">
+                    <span class="label-text">Return Date</span>
+                  </div>
+                  <input
+                    type="date"
+                    th:field="*{returnDate}"
+                    id="returnDate"
+                    class="input input-bordered w-full"
+                  />
+                  <p
+                    class="text-red-500 text-xs mt-1"
+                    th:if="${#fields.hasErrors('returnDate')}"
+                    th:errors="*{returnDate}"
+                  >
+                    Return Date error
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="flex justify-end mt-6">
+              <button
+                type="submit"
+                class="w-full py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-600 font-bold"
+              >
+                <span>Submit</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>

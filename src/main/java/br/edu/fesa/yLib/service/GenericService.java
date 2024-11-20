@@ -1,28 +1,21 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
- */
-package br.ebu.fesa.yLib.service;
+package br.edu.fesa.yLib.service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 /**
  *
  * @author Grupo 7
  */
-public interface GenericService<T> {
+public interface GenericService<T, ID> {
 
-    void save(T entity);
+  List<T> findAll();
 
-    void update(T entity);
+  T findById(ID id);
 
-    void delete(T t);
+  T save(T entity);
 
-    T findById(UUID id);
+  void update(ID id, T entity);
 
-    List<T> findAll();
-
-    Optional<T> findByAttribute(String attributeName, Object value);
+  void delete(ID id);
 }
