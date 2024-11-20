@@ -15,48 +15,48 @@ import jakarta.validation.Valid;
 @PreAuthorize("hasAnyRole('ADMIN', 'LIBRARIAN')")
 public class EditorsController {
 
-    @Autowired
-    private EditorService editorService;
+  @Autowired
+  private EditorService editorService;
 
-    @GetMapping
-    public String listEditors(Model model) {
-        model.addAttribute("editors", editorService.findAll());
-        return "editors/list";
-    }
+  @GetMapping
+  public String listEditors(Model model) {
+    model.addAttribute("editors", editorService.findAll());
+    return "editors/list";
+  }
 
-    @GetMapping("/create")
-    public String showCreateForm(Model model) {
-        model.addAttribute("editor", new Editor());
-        return "editors/create";
-    }
+  @GetMapping("/create")
+  public String showCreateForm(Model model) {
+    model.addAttribute("editor", new Editor());
+    return "editors/create";
+  }
 
-    @PostMapping("/create")
-    public String createEditor(@Valid @ModelAttribute Editor editor, BindingResult result) {
-        if (result.hasErrors()) {
-            return "editors/create";
-        }
-        editorService.save(editor);
-        return "redirect:/editors";
+  @PostMapping("/create")
+  public String createEditor(@Valid @ModelAttribute Editor editor, BindingResult result) {
+    if (result.hasErrors()) {
+      return "editors/create";
     }
+    editorService.save(editor);
+    return "redirect:/editors";
+  }
 
-    @GetMapping("/edit/{id}")
-    public String showEditForm(@PathVariable int id, Model model) {
-        model.addAttribute("editor", editorService.findById(id));
-        return "editors/edit";
-    }
+  @GetMapping("/edit/{id}")
+  public String showEditForm(@PathVariable int id, Model model) {
+    model.addAttribute("editor", editorService.findById(id));
+    return "editors/edit";
+  }
 
-    @PostMapping("/edit/{id}")
-    public String updateEditor(@PathVariable int id, @Valid @ModelAttribute Editor editor, BindingResult result) {
-        if (result.hasErrors()) {
-            return "editors/edit";
-        }
-        editorService.update(id, editor);
-        return "redirect:/editors";
+  @PostMapping("/edit/{id}")
+  public String updateEditor(@PathVariable int id, @Valid @ModelAttribute Editor editor, BindingResult result) {
+    if (result.hasErrors()) {
+      return "editors/edit";
     }
+    editorService.update(id, editor);
+    return "redirect:/editors";
+  }
 
-    @GetMapping("/delete/{id}")
-    public String deleteEditor(@PathVariable int id) {
-        editorService.delete(id);
-        return "redirect:/editors";
-    }
+  @GetMapping("/delete/{id}")
+  public String deleteEditor(@PathVariable int id) {
+    editorService.delete(id);
+    return "redirect:/editors";
+  }
 }
