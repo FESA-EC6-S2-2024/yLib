@@ -1,24 +1,46 @@
 <!DOCTYPE html>
-<html data-theme="light" xmlns:th="http://www.thymeleaf.org" lang="en">
+<html th:replace="~{layouts/base.html :: layout(~{::title}, ~{::section})}">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Edit Author</title>
-  <link rel="icon" type="image/x-icon" href="/favicon.ico">
-  <link rel="stylesheet" href="/css/styles.css">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.14/dist/full.min.css" rel="stylesheet" type="text/css"/>
+    <title>Edit Author</title>
 </head>
-<body class="bg-purple-50 min-h-screen">
+<body>
+    <section class="h-full flex items-center justify-center">
+        <div class="w-full max-w-md bg-white shadow-lg rounded-lg p-6">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-6">Edit Author</h2>
+            <div th:replace="~{fragments/form :: form('/authors/edit/' + ${author.id}, 'author', ~{::#content})}">
+                <div id="content">
+                    <div class="mb-4 form-control w-full">
+                        <div class="label">
+                            <span class="label-text">Name</span>
+                        </div>
+                        <input type="text" th:field="*{name}" id="name" class="input input-bordered w-full" />
+                        <p class="text-red-500 text-xs mt-1" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name error</p>
+                    </div>
+                    
+                    <div class="mb-4 form-control w-full">
+                        <div class="label">
+                            <span class="label-text">Country</span>
+                        </div>
+                        <input type="text" th:field="*{country}" id="country" class="input input-bordered w-full"/>
+                        <p class="text-red-500 text-xs mt-1" th:if="${#fields.hasErrors('country')}" th:errors="*{country}">Country error</p>
+                    </div>
 
-<div th:replace="~{fragments/nav.html}"></div>
+                    <div class="mb-4 form-control w-full">
+                        <div class="label">
+                            <span class="label-text">Birth date</span>
+                        </div>
+                        <input type="date" th:field="*{birthDate}" id="birthDate" class="input input-bordered w-full"/>
+                        <p class="text-red-500 text-xs mt-1" th:if="${#fields.hasErrors('birthDate')}" th:errors="*{birthDate}">Birth Date error</p>
+                    </div>
 
-<div class="flex items-center justify-center min-h-screen">
-  <div class="w-full max-w-md bg-white shadow-lg rounded-lg p-6">
-    <h2 class="text-2xl font-semibold text-gray-800 mb-6">Edit Author</h2>
-    <div th:insert="~{fragments/authorForm(actionUrl='/authors/edit/' + ${author.id}, buttonText='Save Changes')}"></div>
-  </div>
-</div>
-
+                    <div class="flex justify-end mt-6">
+                        <button type="submit" class="w-full py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-600 font-bold">
+                            <span>Submit</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 </body>
 </html>

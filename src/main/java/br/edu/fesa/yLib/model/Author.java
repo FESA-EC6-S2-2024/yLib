@@ -1,6 +1,5 @@
 package br.edu.fesa.yLib.model;
 
-import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -13,7 +12,9 @@ import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Size;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.util.Date;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * @author Grupo7
@@ -41,18 +42,19 @@ public class Author implements Serializable {
 
   @NotNull(message = "Birth date is required.")
   @Past(message = "Birth date must be in the past.")
+  @DateTimeFormat(pattern = "yyyy-MM-dd")
   @Column(name = "BIRTH_DATE", nullable = false)
-  private LocalDateTime birthDate;
+  private Date birthDate;
 
   public Author() {}
 
-  public Author(String name, String country, LocalDateTime birthDate) {
+  public Author(String name, String country, Date birthDate) {
     this.name = name;
     this.country = country;
     this.birthDate = birthDate;
   }
 
-  public Author(int id, String name, String country, LocalDateTime birthDate) {
+  public Author(int id, String name, String country, Date birthDate) {
     this.id = id;
     this.name = name;
     this.country = country;
@@ -84,11 +86,11 @@ public class Author implements Serializable {
     this.country = country;
   }
 
-  public LocalDateTime getBirthDate() {
+  public Date getBirthDate() {
     return birthDate;
   }
 
-  public void setBirthDate(LocalDateTime birthDate) {
+  public void setBirthDate(Date birthDate) {
     this.birthDate = birthDate;
   }
 }
