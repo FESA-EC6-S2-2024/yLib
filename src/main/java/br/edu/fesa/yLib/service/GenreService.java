@@ -10,32 +10,32 @@ import java.util.List;
 @Service
 public class GenreService {
 
-    @Autowired
-    private GenreRepository genreRepository;
+  @Autowired
+  private GenreRepository genreRepository;
 
-    public List<Genre> findAll() {
-        return genreRepository.findAll();
-    }
+  public List<Genre> findAll() {
+    return genreRepository.findAll();
+  }
 
-    public Genre findById(int id) {
-        return genreRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Genre not found"));
-    }
+  public Genre findById(int id) {
+    return genreRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Genre not found"));
+  }
 
-    @Transactional
-    public Genre save(Genre genre) {
-        return genreRepository.save(genre);
-    }
+  @Transactional
+  public Genre save(Genre genre) {
+    return genreRepository.save(genre);
+  }
 
-    @Transactional
-    public Genre update(int id, Genre genreDetails) {
-        Genre genre = findById(id);
-        genre.setDescription(genreDetails.getDescription());
-        return genreRepository.save(genre);
-    }
+  @Transactional
+  public Genre update(int id, Genre genreDetails) {
+    Genre genre = findById(id);
+    genre.setDescription(genreDetails.getDescription());
+    return genreRepository.save(genre);
+  }
 
-    @Transactional
-    public void delete(int id) {
-        Genre genre = findById(id);
-        genreRepository.delete(genre);
-    }
+  @Transactional
+  public void delete(int id) {
+    Genre genre = findById(id);
+    genreRepository.delete(genre);
+  }
 }
