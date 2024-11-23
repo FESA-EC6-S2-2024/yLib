@@ -1,132 +1,132 @@
-<div class="navbar bg-purple-200">
-    <div class="navbar-start">
-        <div class="dropdown">
-            <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="h-5 w-5"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                >
-                    <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M4 6h16M4 12h8m-8 6h16"
-                    />
-                </svg>
-            </div>
-            <ul
-                tabindex="0"
-                class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
-            >
-                <li sec:authorize="hasRole('CLIENT')">
-                    <a th:href="@{/loans/client}">My Loans</a>
-                </li>
-                <li sec:authorize="hasAnyRole('ADMIN', 'LIBRARIAN')">
-                    <details>
-                        <summary>Records</summary>
-                        <ul class="p-2">
-                            <li><a th:href="@{/books}">Books</a></li>
-                            <li><a th:href="@{/authors}">Authors</a></li>
-                            <li><a th:href="@{/editors}">Editors</a></li>
-                            <li><a th:href="@{/genres}">Genres</a></li>
-                        </ul>
-                    </details>
-                </li>
-                <li sec:authorize="hasAnyRole('ADMIN', 'LIBRARIAN')">
-                    <a th:href="@{/loans}">Loans</a>
-                </li>
-                <li sec:authorize="hasRole('ADMIN')">
-                    <a th:href="@{/users}">Users</a>
-                </li>
-            </ul>
-        </div>
-
-        <!-- App logo -->
+<div class="navbar bg-purple-200 z-50">
+  <div class="navbar-start">
+    <div class="dropdown">
+      <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
         <svg
-            class="text-cyan-800 fill-current h-8 w-auto mr-4"
-            viewBox="0 0 32 32"
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-5 w-5"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
         >
-            <path
-                d="m22.781 21.065 1.815.019-2.733-3.08 1.774-1.272c-2.89-2.272-3.671-3.404-4.371-5.677l2.352 1.066-2.913-3.92 1.602-.54c-2.709-2.141-4.033-4.299-4.752-6.464v.016c-1.13 2.411-2.812 4.515-4.848 6.423l2.353-.246-3.204 4.059 1.547-.494-2.097 3.425 1.031.614-4.071 5.75 2.253.012-3.225 5.215 3.965-.506.75 2.002 3.521-1.339-.759 5.236h4.62l-.439-4.577 1.772.76.637-1.547 2.762 1.308 3.519-1.294-2.861-4.948z"
-            />
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M4 6h16M4 12h8m-8 6h16"
+          />
         </svg>
-        <a href="/" class="custom-font text-3xl font-bold text-cyan-800"
-            >yLib</a
-        >
-    </div>
-    <div class="navbar-center hidden lg:flex">
-        <ul class="menu menu-horizontal px-1">
-            <li sec:authorize="hasRole('CLIENT')">
-                <a th:href="@{/loans/client}">My Loans</a>
-            </li>
-            <li sec:authorize="hasAnyRole('ADMIN', 'LIBRARIAN')">
-                <details>
-                    <summary>Records</summary>
-                    <ul class="p-2">
-                        <li><a th:href="@{/books}">Books</a></li>
-                        <li><a th:href="@{/authors}">Authors</a></li>
-                        <li><a th:href="@{/editors}">Editors</a></li>
-                        <li><a th:href="@{/genres}">Genres</a></li>
-                    </ul>
-                </details>
-            </li>
-            <li sec:authorize="hasAnyRole('ADMIN', 'LIBRARIAN')">
-                <a th:href="@{/loans}">Loans</a>
-            </li>
-            <li sec:authorize="hasRole('ADMIN')">
-                <a th:href="@{/users}">Users</a>
-            </li>
-        </ul>
-    </div>
-    <div class="navbar-end">
-        <div class="form-control mr-4">
-            <input
-                type="text"
-                placeholder="Search..."
-                class="input input-bordered w-24 md:w-auto"
-            />
-        </div>
-        <div class="dropdown dropdown-end">
-            <div
-                tabindex="0"
-                role="button"
-                class="btn btn-ghost btn-circle avatar"
-            >
-                <div class="w-10 rounded-full">
-                    <img
-                        alt="Tailwind CSS Navbar component"
-                        th:src="${#authentication.principal.getInitials()}"
-                    />
-                </div>
-            </div>
-            <ul
-                tabindex="0"
-                class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
-            >
-                <li><a>Profile</a></li>
-                <li>
-                    <a
-                        href="#"
-                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
-                        >Logout</a
-                    >
-                    <form
-                        id="logout-form"
-                        th:action="@{/auth/logout}"
-                        method="post"
-                        style="display: none"
-                    >
-                        <input
-                            type="hidden"
-                            th:name="${_csrf.parameterName}"
-                            th:value="${_csrf.token}"
-                        />
-                    </form>
-                </li>
+      </div>
+      <ul
+        tabindex="0"
+        class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+      >
+        <li sec:authorize="hasRole('CLIENT')">
+          <a th:href="@{/loans/client}">My Loans</a>
+        </li>
+        <li sec:authorize="hasAnyRole('ADMIN', 'LIBRARIAN')">
+          <details>
+            <summary>Records</summary>
+            <ul class="p-2">
+              <li><a th:href="@{/books}">Books</a></li>
+              <li><a th:href="@{/authors}">Authors</a></li>
+              <li><a th:href="@{/editors}">Editors</a></li>
+              <li><a th:href="@{/genres}">Genres</a></li>
             </ul>
-        </div>
+          </details>
+        </li>
+        <li sec:authorize="hasAnyRole('ADMIN', 'LIBRARIAN')">
+          <a th:href="@{/loans}">Loans</a>
+        </li>
+        <li sec:authorize="hasRole('ADMIN')">
+          <a th:href="@{/users}">Users</a>
+        </li>
+      </ul>
     </div>
+
+    <!-- App logo -->
+    <svg class="text-cyan-800 fill-current h-8 w-auto mr-4" viewBox="0 0 32 32">
+      <path
+        d="m22.781 21.065 1.815.019-2.733-3.08 1.774-1.272c-2.89-2.272-3.671-3.404-4.371-5.677l2.352 1.066-2.913-3.92 1.602-.54c-2.709-2.141-4.033-4.299-4.752-6.464v.016c-1.13 2.411-2.812 4.515-4.848 6.423l2.353-.246-3.204 4.059 1.547-.494-2.097 3.425 1.031.614-4.071 5.75 2.253.012-3.225 5.215 3.965-.506.75 2.002 3.521-1.339-.759 5.236h4.62l-.439-4.577 1.772.76.637-1.547 2.762 1.308 3.519-1.294-2.861-4.948z"
+      />
+    </svg>
+    <a href="/" class="custom-font text-3xl font-bold text-cyan-800">yLib</a>
+  </div>
+  <div class="navbar-center hidden lg:flex">
+    <ul class="menu menu-horizontal px-1">
+      <li sec:authorize="hasRole('CLIENT')">
+        <a th:href="@{/loans/client}">My Loans</a>
+      </li>
+      <li sec:authorize="hasAnyRole('ADMIN', 'LIBRARIAN')">
+        <details>
+          <summary>Records</summary>
+          <ul class="p-2">
+            <li><a th:href="@{/books}">Books</a></li>
+            <li><a th:href="@{/authors}">Authors</a></li>
+            <li><a th:href="@{/editors}">Editors</a></li>
+            <li><a th:href="@{/genres}">Genres</a></li>
+          </ul>
+        </details>
+      </li>
+      <li sec:authorize="hasAnyRole('ADMIN', 'LIBRARIAN')">
+        <a th:href="@{/loans}">Loans</a>
+      </li>
+      <li sec:authorize="hasRole('ADMIN')">
+        <a th:href="@{/users}">Users</a>
+      </li>
+    </ul>
+  </div>
+  <div class="navbar-end">
+    <div class="">
+      <form
+        id="book-search-input"
+        th:action="@{/books/search}"
+        method="get"
+        class="form-control mr-4"
+      >
+        <input
+          name="keyword"
+          type="text"
+          placeholder="Search..."
+          class="input input-bordered w-24 md:w-auto"
+          th:value="${param.keyword}"
+        />
+      </form>
+    </div>
+    <div class="dropdown dropdown-end">
+      <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
+        <div class="ring-purple-500 ring-offset-slate-200 w-8 rounded-full ring ring-offset-2">
+          <img
+            alt="Tailwind CSS Navbar component"
+            th:src="${#authentication.principal.getInitials()}"
+          />
+        </div>
+      </div>
+      <ul
+        tabindex="0"
+        class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+      >
+        <li><a>Profile</a></li>
+        <li>
+          <a
+            href="#"
+            onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+            >Logout</a
+          >
+          <form
+            id="logout-form"
+            th:action="@{/auth/logout}"
+            method="post"
+            style="display: none"
+          >
+            <input
+              type="hidden"
+              th:name="${_csrf.parameterName}"
+              th:value="${_csrf.token}"
+            />
+          </form>
+        </li>
+      </ul>
+    </div>
+  </div>
 </div>
