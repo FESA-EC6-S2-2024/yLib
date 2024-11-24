@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.http.ResponseEntity;
 
 /**
  * @author Grupo7
@@ -69,6 +70,17 @@ public class AuthenticationController {
     }
 
     return "redirect:/home";
+  }
+
+  @GetMapping("/check-session")
+  public ResponseEntity<String> checkSession() {
+    if (SecurityContextHolder.getContext().getAuthentication() == null
+        || !SecurityContextHolder.getContext().getAuthentication().isAuthenticated()
+        || "anonymousUser"
+            .equals(SecurityContextHolder.getContext().getAuthentication().getPrincipal())) {
+      return ResponseEntity.status(440).body("Session expired");
+    }
+    return ResponseEntity.ok("Session active");
   }
 
   private boolean isAuthenticated() {

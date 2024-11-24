@@ -51,6 +51,9 @@
         <div th:if="${param.error}">
             <p class="mt-4 text-red-500">Invalid username or password</p>
         </div>
+        <div th:if="${param.expired}">
+            <p class="mt-4 text-red-500">Your session has expired</p>
+        </div>
     </form>
 
     <p class="mt-6 text-gray-700">Don't have an account? <a th:href="@{/auth/register}" class="text-purple-400">Sign
