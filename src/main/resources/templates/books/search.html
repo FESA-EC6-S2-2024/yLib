@@ -5,111 +5,124 @@
   </head>
   <body>
     <section class="h-full flex">
-      <div class="w-full grid grid-cols-5 gap-4 m-8">
-        <!-- Advanced Filters -->
-        <div class="col-span-1">
+      <form
+        th:action="@{/books/search}"
+        th:object="${searchOptions}"
+        method="get"
+        class="w-full grid md:grid-cols-5 gap-4 x-1 p-4 xl:m-8"
+      >
+        <input type="hidden" th:field="*{keyword}" />
+
+        <div class="md:col-span-1">
           <div
-            class="rounded-box flex flex-col items-center w-fit gap-4 bg-purple-200/30 p-4 w-auto mb-8"
+            class="p-3 xl:w-fit w-full rounded-box flex justify-between flex-col items-center gap-4 bg-purple-200/30 p-0 xl:p-4 w-fit mb-8"
           >
+            <!-- Editors Filter -->
             <ul
-              class="menu rounded-box drop-shadow-xl w-56 bg-gradient-to-r from-5% from-fuchsia-100 to-purple-100"
+              class="menu w-full rounded-box drop-shadow-xl w-32 xl:w-56 bg-gradient-to-r from-fuchsia-100 to-purple-100"
             >
               <li>
-                <h2 class="menu-title">Editoras</h2>
-                <ul class="overflow-y-auto max-h-48">
-                  <li><a>Item 1</a></li>
-                  <li><a>Item 2</a></li>
-                  <li><a>Item 3</a></li>
-                </ul>
+                <h2 class="menu-title">Editors</h2>
+                <select
+                  th:field="*{editor}"
+                  class="select select-bordered w-full md:max-w-xs bg-transparent"
+                  onchange="this.form.submit()"
+                >
+                  <option value="" selected>All</option>
+                  <option
+                    th:each="editor : ${editors}"
+                    th:value="${editor.id}"
+                    th:text="${editor.name}"
+                  ></option>
+                </select>
               </li>
             </ul>
 
+            <!-- Genres Filter -->
             <ul
-              class="menu rounded-box drop-shadow-xl w-56 bg-gradient-to-r from-5% from-fuchsia-100 to-purple-100"
+              class="menu w-full rounded-box drop-shadow-xl w-32 xl:w-56 bg-gradient-to-r from-fuchsia-100 to-purple-100"
             >
               <li>
-                <h2 class="menu-title">Categorias</h2>
-                <ul class="overflow-y-auto max-h-48">
-                  <li><a>Item 1</a></li>
-                  <li><a>Item 2</a></li>
-                  <li><a>Item 3</a></li>
-                </ul>
+                <h2 class="menu-title">Genres</h2>
+                <select
+                  th:field="*{genre}"
+                  class="select select-bordered w-full md:max-w-xs bg-transparent"
+                  onchange="this.form.submit()"
+                >
+                  <option value="" selected>All</option>
+                  <option
+                    th:each="genre : ${genres}"
+                    th:value="${genre.id}"
+                    th:text="${genre.description}"
+                  ></option>
+                </select>
               </li>
             </ul>
 
+            <!-- Authors Filter -->
             <ul
-              class="menu rounded-box drop-shadow-xl w-56 bg-gradient-to-r from-5% from-fuchsia-100 to-purple-100"
+              class="menu w-full rounded-box drop-shadow-xl w-32 xl:w-56 bg-gradient-to-r from-fuchsia-100 to-purple-100"
             >
               <li>
-                <h2 class="menu-title">Autores</h2>
-                <ul class="overflow-y-auto max-h-48">
-                  <li><a>Item 1</a></li>
-                  <li><a>Item 2</a></li>
-                  <li><a>Item 3</a></li>
-                </ul>
-              </li>
-            </ul>
-
-            <ul
-              class="menu rounded-box drop-shadow-xl w-56 bg-gradient-to-r from-5% from-fuchsia-100 to-purple-100"
-              id="scrollbar6"
-            >
-              <li>
-                <h2 class="menu-title">Gêneros</h2>
-                <ul class="overflow-y-auto max-h-48">
-                  <li><a>Item 1</a></li>
-                  <li><a>Item 2</a></li>
-                  <li><a>Item 3</a></li>
-                  <li><a>Item 1</a></li>
-                  <li><a>Item 2</a></li>
-                  <li><a>Item 3</a></li>
-                  <li><a>Item 3</a></li>
-                  <li><a>Item 3</a></li>
-                  <li><a>Item 3</a></li>
-                  <li><a>Item 3</a></li>
-                  <li><a>Item 3</a></li>
-                  <li><a>Item 1</a></li>
-                  <li><a>Item 2</a></li>
-                  <li><a>Item 3</a></li>
-                </ul>
+                <h2 class="menu-title">Authors</h2>
+                <select
+                  th:field="*{author}"
+                  class="select select-bordered w-full md:max-w-xs bg-transparent"
+                  onchange="this.form.submit()"
+                >
+                  <option value="" selected>All</option>
+                  <option
+                    th:each="author : ${authors}"
+                    th:value="${author.id}"
+                    th:text="${author.name}"
+                  ></option>
+                </select>
               </li>
             </ul>
           </div>
         </div>
 
-        <div class="col-span-4 p-5">
+        <!-- Books List -->
+        <div class="md:col-span-4 p-0 xl:p-5">
           <div class="flex flex-col h-full justify-between">
+            <!-- Search Options -->
             <div
               id="search-opts"
-              class="flex flex-row justify-between items-center mb-8"
+              class="flex flex-row flex-wrap gap-3 justify-between items-center mb-8"
             >
-              <!-- Order by -->
-              <div class="flex items-center gap-3 w-full max-w-xs">
+              <!-- Sort Dropdown -->
+              <div class="flex items-center gap-3 w-fit lg:w-full max-w-xs">
                 <i class="fa-solid fa-sort"></i>
-                <select class="select select-bordered w-full">
+                <select class="select select-bordered w-fit lg:w-full">
                   <option disabled selected>Sort</option>
-                  <option>Title</option>
-                  <option>Publish date ascending</option>
-                  <option>Publish date descending</option>
-                  <option>Author</option>
+                  <!-- <option
+                      th:each="option : ${#arrays.asList('title', 'author', 'publishDateAsc', 'publishDateDesc')}"
+                      th:value="@{/books/search(sort=${option})}"
+                      th:text="${option}"
+                    ></option> -->
                 </select>
               </div>
 
-              <!-- Page size -->
-              <div class="flex items-center gap-3 w-full max-w-xs">
+              <!-- Page Size Dropdown -->
+              <div class="flex items-center gap-3 w-fit lg:w-full max-w-xs">
                 <i class="fa-solid fa-expand gap-2"></i>
-                <select class="select select-bordered w-full">
-                  <option selected>20 per page</option>
-                  <option>40 per page</option>
-                  <option>60 per page</option>
-                  <option>80 per page</option>
+                <select
+                  name="pageSize"
+                  class="select select-bordered w-fit lg:w-full"
+                  onchange="this.form.submit()"
+                  th:field="*{pageSize}"
+                >
+                  <option th:value="20">20 per page</option>
+                  <option th:value="40">40 per page</option>
+                  <option th:value="60">60 per page</option>
                 </select>
               </div>
 
-              <!-- Query result count -->
-              <p><b>3</b> items</p>
+              <div class="w-full md:w-auto"></div>
 
-              <!-- Display style -->
+              <!-- Query Result Count -->
+              <p><b th:text="${totalItems}">0</b> items</p>
+
               <div role="tablist" class="tabs tabs-bordered">
                 <a role="tab" class="tab tab-active"
                   ><i class="fa-solid fa-table-cells-large"></i
@@ -120,133 +133,52 @@
               </div>
             </div>
 
-            <!-- Search result content -->
+            <!-- Card Grid -->
             <div
-              class="h-full mb-8 grid  gap-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5"
+              class="h-full mb-8 grid gap-4 lg:gap-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5"
             >
-              <!-- Cards -->
+              <!-- Single Card -->
               <div
-                class="h-fit card glass rounded shadow-lg shadow-gray-200 bg-white duration-300 hover:-translate-y-1"
+                th:each="book : ${books.getContent()}"
+                class="h-fit card rounded shadow-lg shadow-gray-200 bg-white min-w-0"
               >
                 <figure>
                   <img
-                    src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-                    alt="car!"
+                    th:src="${book.image}"
+                    alt="Book Cover"
+                    class="xl:h-48 md:h-32 h-48 md:h-16 object-contain md:object-scale-down"
                   />
                 </figure>
-                <div class="card-body">
-                  <h2 class="card-title">Life hack</h2>
-                  <p>How to park your car at your garage?</p>
-                  <div class="card-actions justify-end">
-                    <button class="btn btn-primary">Learn now!</button>
+                <div class="card-body xl:p-8 md:p-2">
+                  <div class="tooltip" th:data-tip="${book.title}">
+                    <h2
+                      class="font-semibold text-xs lg:text-base  overflow-hidden   truncate"
+                      th:text="${book.title}"
+                    ></h2>
                   </div>
-                </div>
-              </div>
-
-              <div
-                class="h-fit card glass rounded shadow-lg shadow-gray-200 bg-white duration-300 hover:-translate-y-1"
-              >
-                <figure>
-                  <img
-                    src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-                    alt="car!"
-                  />
-                </figure>
-                <div class="card-body">
-                  <h2 class="card-title">Life hack</h2>
-                  <p>How to park your car at your garage?</p>
+                  <p
+                    th:text="${book.synopsis}"
+                    class="text-xs lg:text-base   overflow-hidden  truncate"
+                  ></p>
                   <div class="card-actions justify-end">
-                    <button class="btn btn-primary">Learn now!</button>
-                  </div>
-                </div>
-              </div>
-
-              <div
-                class="h-fit card glass  rounded shadow-lg shadow-gray-200 bg-white duration-300 hover:-translate-y-1"
-              >
-                <figure>
-                  <img
-                    src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-                    alt="car!"
-                  />
-                </figure>
-                <div class="card-body">
-                  <h2 class="card-title">Life hack</h2>
-                  <p>How to park your car at your garage?</p>
-                  <div class="card-actions justify-end">
-                    <button class="btn btn-primary">Learn now!</button>
-                  </div>
-                </div>
-              </div>
-
-              <div
-                class="h-fit card glass  rounded shadow-lg shadow-gray-200 bg-white duration-300 hover:-translate-y-1"
-              >
-                <figure>
-                  <img
-                    src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-                    alt="car!"
-                  />
-                </figure>
-                <div class="card-body">
-                  <h2 class="card-title">Life hack</h2>
-                  <p>How to park your car at your garage?</p>
-                  <div class="card-actions justify-end">
-                    <button class="btn btn-primary">Learn now!</button>
-                  </div>
-                </div>
-              </div>
-
-              <div
-                class="h-fit card glass  rounded shadow-lg shadow-gray-200 bg-white duration-300 hover:-translate-y-1"
-              >
-                <figure>
-                  <img
-                    src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-                    alt="car!"
-                  />
-                </figure>
-                <div class="card-body">
-                  <h2 class="card-title">Life hack</h2>
-                  <p>How to park your car at your garage?</p>
-                  <div class="card-actions justify-end">
-                    <button class="btn btn-primary">Learn now!</button>
-                  </div>
-                </div>
-              </div>
-
-              <div
-                class="h-fit card glass  rounded shadow-lg shadow-gray-200 bg-white duration-300 hover:-translate-y-1"
-              >
-                <figure>
-                  <img
-                    src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-                    alt="car!"
-                  />
-                </figure>
-                <div class="card-body">
-                  <h2 class="card-title">Life hack</h2>
-                  <p>How to park your car at your garage?</p>
-                  <div class="card-actions justify-end">
-                    <button class="btn btn-primary">Learn now!</button>
-                  </div>
-                </div>
-              </div>
-
-              <div
-                class="h-fit card glass  rounded shadow-lg shadow-gray-200 bg-white duration-300 hover:-translate-y-1"
-              >
-                <figure>
-                  <img
-                    src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-                    alt="car!"
-                  />
-                </figure>
-                <div class="card-body">
-                  <h2 class="card-title">Life hack</h2>
-                  <p>How to park your car at your garage?</p>
-                  <div class="card-actions justify-end">
-                    <button class="btn btn-primary">Learn now!</button>
+                    <a
+                      class="btn bg-purple-200 btn-sm xl:btn-md"
+                      th:href="@{/books/edit/{id}(id=${book.id})}"
+                    >
+                      <i class="fa-solid fa-pencil"></i>
+                    </a>
+                    <a
+                      class="btn bg-purple-400 btn-sm xl:btn-md"
+                      th:href="@{/books/edit/{id}(id=${book.id})}"
+                    >
+                      <i class="fa-solid fa-basket-shopping"></i>
+                    </a>
+                    <a
+                      class="btn btn-error btn-sm xl:btn-md"
+                      th:href="@{/books/edit/{id}(id=${book.id})}"
+                    >
+                      <i class="fa-solid fa-trash"></i>
+                    </a>
                   </div>
                 </div>
               </div>
@@ -254,13 +186,35 @@
 
             <!-- Pagination -->
             <div class="join self-center">
-              <button class="join-item btn">«</button>
-              <button class="join-item btn no-animation">Page 1</button>
-              <button class="join-item btn">»</button>
+              <button
+                type="submit"
+                class="join-item btn"
+                th:if="${books.hasPrevious()}"
+                th:value="*{page - 1}"
+                name="page"
+              >
+                «
+              </button>
+
+              <!-- Current Page Display -->
+              <span class="join-item btn no-animation">
+                Page <span th:text="*{page}"></span>
+              </span>
+
+              <!-- Next Page Button -->
+              <button
+                type="submit"
+                class="join-item btn"
+                th:if="${books.hasNext()}"
+                th:value="*{page + 1}"
+                name="page"
+              >
+                »
+              </button>
             </div>
           </div>
         </div>
-      </div>
+      </form>
     </section>
   </body>
 </html>

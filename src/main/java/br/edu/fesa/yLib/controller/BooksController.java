@@ -1,10 +1,16 @@
 package br.edu.fesa.yLib.controller;
 
+import br.edu.fesa.yLib.dto.BookSearchOptionsDto;
+import br.edu.fesa.yLib.dto.BookSearchResultDto;
+import br.edu.fesa.yLib.model.Author;
 import br.edu.fesa.yLib.model.Book;
+import br.edu.fesa.yLib.model.Editor;
+import br.edu.fesa.yLib.model.Genre;
 import br.edu.fesa.yLib.service.AuthorService;
 import br.edu.fesa.yLib.service.BookService;
 import br.edu.fesa.yLib.service.EditorService;
 import br.edu.fesa.yLib.service.GenreService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -14,7 +20,12 @@ import org.springframework.web.bind.annotation.*;
 
 import jakarta.validation.Valid;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+
 
 @Controller
 @RequestMapping("/books")
@@ -91,5 +102,42 @@ public class BooksController {
     public String deleteBook(@PathVariable int id) {
         bookService.deleteBook(id);
         return "redirect:/books";
+    }
+
+    @GetMapping("/search")
+    public String searchBooks(@ModelAttribute BookSearchOptionsDto searchOptions, Model model) {
+        BookSearchResultDto result = bookService.searchBooks(
+            searchOptions.getKeyword(),
+            searchOptions.getEditor(),
+            searchOptions.getGenre(),
+            searchOptions.getAuthor(),
+            searchOptions.getSort(),
+            searchOptions.getPage(),
+            searchOptions.getPageSize());
+
+        // Collect distinct authors, genres, and editors
+        Set<Author> distinctAuthors = new HashSet<>();
+        Set<Genre> distinctGenres = new HashSet<>();
+        Set<Editor> distinctEditors = new HashSet<>();
+
+        for (Book book : result.getBookPage().getContent()) {
+            distinctAuthors.add(book.getAuthor());
+            distinctGenres.add(book.getGenre());
+            distinctEditors.add(book.getEditor());
+        }
+
+        List<Author> authorsList = new ArrayList<>(distinctAuthors);
+        List<Genre> genresList = new ArrayList<>(distinctGenres);
+        List<Editor> editorsList = new ArrayList<>(distinctEditors);
+
+        // Add results to the model
+        model.addAttribute("searchOptions", searchOptions);
+        model.addAttribute("books", result.getBookPage());
+        model.addAttribute("authors", authorsList);
+        model.addAttribute("genres", genresList);
+        model.addAttribute("editors", editorsList);
+        model.addAttribute("totalItems", result.getTotalItems());
+        
+        return "/books/search";
     }
 }
