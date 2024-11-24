@@ -3,11 +3,9 @@ package br.edu.fesa.yLib.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import java.io.Serializable;
-import java.util.Date;
 import java.util.UUID;
 import lombok.*;
 import org.hibernate.validator.constraints.Length;
-import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * @author Grupo7
@@ -44,8 +42,7 @@ public class Book implements Serializable {
 
   @NotNull(message = "Published year is required.")
   @Column(name = "PUBLISHED_YEAR", nullable = false)
-  @DateTimeFormat(pattern = "yyyy-MM-dd")
-  private Date publishedYear;
+  private int publishedYear;
 
   @Positive(message = "Available units must be positive.")
   @Column(name = "AVAILABLE_UNITS", nullable = false)
