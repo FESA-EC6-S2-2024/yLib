@@ -1,6 +1,11 @@
 package br.edu.fesa.yLib.controller;
 
+import br.edu.fesa.yLib.dto.BookSearchOptionsDto;
+import br.edu.fesa.yLib.dto.BookSearchResultDto;
+import br.edu.fesa.yLib.model.Author;
 import br.edu.fesa.yLib.model.Book;
+import br.edu.fesa.yLib.model.Editor;
+import br.edu.fesa.yLib.model.Genre;
 import br.edu.fesa.yLib.service.AuthorService;
 import br.edu.fesa.yLib.service.BookService;
 import br.edu.fesa.yLib.service.EditorService;
@@ -14,6 +19,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * @author Grupo7
@@ -90,9 +99,71 @@ public class BooksController {
     return "redirect:/books";
   }
 
-  @GetMapping("/delete/{id}")
-  public String deleteBook(@PathVariable UUID id) {
-    bookService.deleteBook(id);
-    return "redirect:/books";
-  }
+    @GetMapping("/edit/{id}")
+    public String showEditForm(@PathVariable int id, Model model) {
+        Optional<Book> bookOpt = bookService.findById(id);
+        if (bookOpt.isEmpty()) {
+            return "redirect:/books";
+        }
+        model.addAttribute("book", bookOpt.get());
+        model.addAttribute("genres", genreService.findAll());
+        model.addAttribute("authors", authorService.findAll());
+        model.addAttribute("editors", editorService.findAll());
+        return "books/edit";
+    }
+
+    @PostMapping("/edit/{id}")
+    public String updateBook(@PathVariable int id, @Valid @ModelAttribute("book") Book book, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            model.addAttribute("genres", genreService.findAll());
+            model.addAttribute("authors", authorService.findAll());
+            model.addAttribute("editors", editorService.findAll());
+            return "books/edit";
+        }
+        bookService.updateBook(id, book);
+        return "redirect:/books";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deleteBook(@PathVariable int id) {
+        bookService.deleteBook(id);
+        return "redirect:/books";
+    }
+
+    @GetMapping("/search")
+    public String searchBooks(@ModelAttribute BookSearchOptionsDto searchOptions, Model model) {
+        BookSearchResultDto result = bookService.searchBooks(
+            searchOptions.getKeyword(),
+            searchOptions.getEditor(),
+            searchOptions.getGenre(),
+            searchOptions.getAuthor(),
+            searchOptions.getSort(),
+            searchOptions.getPage(),
+            searchOptions.getPageSize());
+
+        // Collect distinct authors, genres, and editors
+        Set<Author> distinctAuthors = new HashSet<>();
+        Set<Genre> distinctGenres = new HashSet<>();
+        Set<Editor> distinctEditors = new HashSet<>();
+
+        for (Book book : result.getBookPage().getContent()) {
+            distinctAuthors.add(book.getAuthor());
+            distinctGenres.add(book.getGenre());
+            distinctEditors.add(book.getEditor());
+        }
+
+        List<Author> authorsList = new ArrayList<>(distinctAuthors);
+        List<Genre> genresList = new ArrayList<>(distinctGenres);
+        List<Editor> editorsList = new ArrayList<>(distinctEditors);
+
+        // Add results to the model
+        model.addAttribute("searchOptions", searchOptions);
+        model.addAttribute("books", result.getBookPage());
+        model.addAttribute("authors", authorsList);
+        model.addAttribute("genres", genresList);
+        model.addAttribute("editors", editorsList);
+        model.addAttribute("totalItems", result.getTotalItems());
+        
+        return "/books/search";
+    }
 }

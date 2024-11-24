@@ -1,5 +1,5 @@
 <div
-  class="navbar bg-purple-200 z-50 hover:drop-shadow-md transition ease-out duration-300"
+  class="navbar sticky top-0 bg-purple-200 z-50 hover:drop-shadow-md transition ease-out duration-300 backdrop-filter backdrop-blur-lg bg-opacity-70 border-b border-gray-200"
 >
   <div class="navbar-start">
     <div class="dropdown">
@@ -26,6 +26,7 @@
         <li sec:authorize="hasRole('CLIENT')">
           <a th:href="@{/loans/client}">My Loans</a>
         </li>
+        <li><a th:href="@{/books/search}">Search</a></li>
         <li sec:authorize="hasAnyRole('ADMIN', 'LIBRARIAN')">
           <details>
             <summary>Records</summary>
@@ -93,6 +94,11 @@
           </ul>
         </details>
       </li>
+      <li>
+        <a th:href="@{/books/search}"
+          ><i class="fa-solid fa-magnifying-glass"></i>Search</a
+        >
+      </li>
       <li sec:authorize="hasAnyRole('ADMIN', 'LIBRARIAN')">
         <a th:href="@{/loans}">
           <i class="fa-regular fa-rectangle-list"></i>Loans</a
@@ -116,7 +122,7 @@
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 16 16"
             fill="currentColor"
-            class="h-4 w-4 opacity-70"
+            class="h-4 w-4 opacity-60"
           >
             <path
               fill-rule="evenodd"
@@ -128,7 +134,7 @@
             name="keyword"
             type="text"
             placeholder="Search..."
-            class="w-32 md:w-auto"
+            class="w-32 xl:w-auto"
             th:value="${param.keyword}"
           />
         </label>
