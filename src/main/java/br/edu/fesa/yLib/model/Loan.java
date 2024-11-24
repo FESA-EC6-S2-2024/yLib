@@ -19,7 +19,7 @@ import java.util.List;
  * @author Grupo7
  */
 @Entity
-@Table(name = "TB_LOAN", schema = "LIBRARY")
+@Table(name = "TB_LOANS", schema = "LIBRARY")
 public class Loan implements Serializable {
 
   private static final long serialVersionUID = 1L;

@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
  * @author Grupo7
  */
 @Entity
-@Table(name = "TB_LOG_HISTORY", schema = "LIBRARY")
+@Table(name = "TB_LOGS_HISTORY", schema = "LIBRARY")
 public class LogHistory implements Serializable {
 
   private static final long serialVersionUID = 1L;

@@ -13,7 +13,7 @@ import java.io.Serializable;
  * @author Grupo7
  */
 @Entity
-@Table(name = "TB_GENRE", schema = "LIBRARY")
+@Table(name = "TB_GENRES", schema = "LIBRARY")
 public class Genre implements Serializable {
 
   private static final long serialVersionUID = 1L;

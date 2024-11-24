@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
  * @author Grupo_7
  */
 @Entity
-@Table(name = "TB_USER", schema = "LIBRARY")
+@Table(name = "TB_USERS", schema = "LIBRARY")
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;

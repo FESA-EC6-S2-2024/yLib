@@ -15,7 +15,7 @@ import java.io.Serializable;
  * @author Grupo7
  */
 @Entity
-@Table(name = "TB_EDITOR", schema = "LIBRARY")
+@Table(name = "TB_EDITORS", schema = "LIBRARY")
 public class Editor implements Serializable {
 
   private static final long serialVersionUID = 1L;

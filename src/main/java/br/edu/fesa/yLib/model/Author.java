@@ -20,7 +20,7 @@ import org.springframework.format.annotation.DateTimeFormat;
  * @author Grupo7
  */
 @Entity
-@Table(name = "TB_AUTHOR", schema = "LIBRARY")
+@Table(name = "TB_AUTHORS", schema = "LIBRARY")
 public class Author implements Serializable {
 
   private static final long serialVersionUID = 1L;
