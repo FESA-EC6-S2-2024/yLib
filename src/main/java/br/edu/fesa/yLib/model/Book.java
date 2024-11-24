@@ -13,7 +13,7 @@ import org.springframework.format.annotation.DateTimeFormat;
  * @author Grupo7
  */
 @Entity
-@Table(name = "TB_BOOK", schema = "LIBRARY")
+@Table(name = "TB_BOOKS", schema = "LIBRARY")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

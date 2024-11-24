@@ -11,7 +11,7 @@ import lombok.*;
  * @author Grupo7
  */
 @Entity
-@Table(name = "TB_LOAN", schema = "LIBRARY")
+@Table(name = "TB_LOANS", schema = "LIBRARY")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

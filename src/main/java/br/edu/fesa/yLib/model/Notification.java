@@ -10,7 +10,7 @@ import lombok.*;
  * @author Grupo7
  */
 @Entity
-@Table(name = "TB_NOTIFICATION", schema = "LIBRARY")
+@Table(name = "TB_NOTIFICATIONS", schema = "LIBRARY")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

@@ -9,7 +9,7 @@ import lombok.*;
  * @author Grupo7
  */
 @Entity
-@Table(name = "TB_GENRE", schema = "LIBRARY")
+@Table(name = "TB_GENRES", schema = "LIBRARY")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
