@@ -13,12 +13,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
-
 import java.io.Serializable;
-import java.util.Date;
-
 import org.hibernate.validator.constraints.Length;
-import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * @author Grupo7
@@ -52,8 +48,7 @@ public class Book implements Serializable {
 
   @NotNull(message = "Published year is required.")
   @Column(name = "PUBLISHED_YEAR", nullable = false)
-  @DateTimeFormat(pattern = "yyyy-MM-dd")
-  private Date publishedYear;
+  private int publishedYear;
 
   @Positive(message = "Available units must be positive.")
   @Column(name = "AVAILABLE_UNITS", nullable = false)
@@ -87,7 +82,7 @@ public class Book implements Serializable {
       String ISBN,
       String title,
       Genre genre,
-      Date publishedYear,
+      int publishedYear,
       int availableUnits,
       int totalUnits,
       Author author,
@@ -101,7 +96,7 @@ public class Book implements Serializable {
     this.totalUnits = totalUnits;
     this.author = author;
     this.editor = editor;
-    this.image = image; // Adicionando o novo atributo
+    this.image = image;
   }
 
   public Book(
@@ -109,7 +104,7 @@ public class Book implements Serializable {
       String ISBN,
       String title,
       Genre genre,
-      Date publishedYear,
+      int publishedYear,
       int availableUnits,
       int totalUnits,
       Author author,
@@ -124,7 +119,7 @@ public class Book implements Serializable {
     this.totalUnits = totalUnits;
     this.author = author;
     this.editor = editor;
-    this.image = image; // Adicionando o novo atributo
+    this.image = image;
   }
 
   // Getters e Setters
@@ -160,11 +155,11 @@ public class Book implements Serializable {
     this.genre = genre;
   }
 
-  public Date getPublishedYear() {
+  public int getPublishedYear() {
     return publishedYear;
   }
 
-  public void setPublishedYear(Date publishedYear) {
+  public void setPublishedYear(int publishedYear) {
     this.publishedYear = publishedYear;
   }
 
