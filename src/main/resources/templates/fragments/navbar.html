@@ -1,4 +1,6 @@
-<div class="navbar bg-purple-200 z-50 hover:drop-shadow-md transition ease-out duration-300">
+<div
+  class="navbar bg-purple-200 z-50 hover:drop-shadow-md transition ease-out duration-300"
+>
   <div class="navbar-start">
     <div class="dropdown">
       <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
@@ -45,38 +47,59 @@
     </div>
 
     <!-- App logo -->
-     <a href="/" class="flex items-center">
-       <svg class="text-cyan-800 fill-current h-8 w-auto mr-4" viewBox="0 0 32 32">
-         <path
-           d="m22.781 21.065 1.815.019-2.733-3.08 1.774-1.272c-2.89-2.272-3.671-3.404-4.371-5.677l2.352 1.066-2.913-3.92 1.602-.54c-2.709-2.141-4.033-4.299-4.752-6.464v.016c-1.13 2.411-2.812 4.515-4.848 6.423l2.353-.246-3.204 4.059 1.547-.494-2.097 3.425 1.031.614-4.071 5.75 2.253.012-3.225 5.215 3.965-.506.75 2.002 3.521-1.339-.759 5.236h4.62l-.439-4.577 1.772.76.637-1.547 2.762 1.308 3.519-1.294-2.861-4.948z"
-         />
-       </svg>
-       <span class="brand-font text-3xl font-bold text-cyan-800 hidden md:block">yLib</span>
-     </a>
+    <a href="/" class="flex items-center">
+      <svg
+        class="text-cyan-800 fill-current h-8 w-auto mr-4"
+        viewBox="0 0 32 32"
+      >
+        <path
+          d="m22.781 21.065 1.815.019-2.733-3.08 1.774-1.272c-2.89-2.272-3.671-3.404-4.371-5.677l2.352 1.066-2.913-3.92 1.602-.54c-2.709-2.141-4.033-4.299-4.752-6.464v.016c-1.13 2.411-2.812 4.515-4.848 6.423l2.353-.246-3.204 4.059 1.547-.494-2.097 3.425 1.031.614-4.071 5.75 2.253.012-3.225 5.215 3.965-.506.75 2.002 3.521-1.339-.759 5.236h4.62l-.439-4.577 1.772.76.637-1.547 2.762 1.308 3.519-1.294-2.861-4.948z"
+        />
+      </svg>
+      <span class="brand-font text-3xl font-bold text-cyan-800 hidden md:block"
+        >yLib</span
+      >
+    </a>
   </div>
   <div class="navbar-center hidden lg:flex">
     <ul class="menu menu-horizontal px-1">
       <li sec:authorize="hasRole('CLIENT')">
-        <a th:href="@{/loans/client}"><i class="fa-regular fa-rectangle-list"></i>My Loans</a>
+        <a th:href="@{/loans/client}"
+          ><i class="fa-regular fa-rectangle-list"></i>My Loans</a
+        >
       </li>
       <li sec:authorize="hasAnyRole('ADMIN', 'LIBRARIAN')">
         <details>
           <summary><i class="fa-solid fa-square-pen"></i>Records</summary>
           <ul class="p-2">
-            <li><a th:href="@{/books}"><i class="fa-solid fa-book-bookmark"></i>Books</a></li>
-            <li><a th:href="@{/authors}"><i class="fa-solid fa-user"></i>Authors</a></li>
-            <li><a th:href="@{/editors}"><i class="fa-regular fa-newspaper"></i>Editors</a></li>
-            <li><a th:href="@{/genres}"><i class="fa-solid fa-tags"></i>Genres</a></li>
+            <li>
+              <a th:href="@{/books}"
+                ><i class="fa-solid fa-book-bookmark"></i>Books</a
+              >
+            </li>
+            <li>
+              <a th:href="@{/authors}"
+                ><i class="fa-solid fa-user"></i>Authors</a
+              >
+            </li>
+            <li>
+              <a th:href="@{/editors}"
+                ><i class="fa-regular fa-newspaper"></i>Editors</a
+              >
+            </li>
+            <li>
+              <a th:href="@{/genres}"><i class="fa-solid fa-tags"></i>Genres</a>
+            </li>
           </ul>
         </details>
       </li>
       <li sec:authorize="hasAnyRole('ADMIN', 'LIBRARIAN')">
-        <a th:href="@{/loans}"> <i class="fa-regular fa-rectangle-list"></i></i>Loans</a>
+        <a th:href="@{/loans}">
+          <i class="fa-regular fa-rectangle-list"></i>Loans</a
+        >
       </li>
       <li sec:authorize="hasRole('ADMIN')">
-        <a th:href="@{/users}">
-          <i class="fa-solid fa-id-card"></i>Users
-        </a>
+        <a th:href="@{/users}"> <i class="fa-solid fa-id-card"></i>Users </a>
       </li>
     </ul>
   </div>
@@ -88,13 +111,27 @@
         method="get"
         class="form-control mr-4"
       >
-        <input
-          name="keyword"
-          type="text"
-          placeholder="Search..."
-          class="input input-bordered w-48 md:w-auto"
-          th:value="${param.keyword}"
-        />
+        <label class="input input-bordered flex items-center gap-2">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 16 16"
+            fill="currentColor"
+            class="h-4 w-4 opacity-70"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
+              clip-rule="evenodd"
+            />
+          </svg>
+          <input
+            name="keyword"
+            type="text"
+            placeholder="Search..."
+            class="w-32 md:w-auto"
+            th:value="${param.keyword}"
+          />
+        </label>
       </form>
     </div>
     <div class="dropdown dropdown-end">
@@ -112,7 +149,9 @@
         tabindex="0"
         class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
       >
-        <li><a><i class="fa-solid fa-user-tie"></i>Profile</a></li>
+        <li>
+          <a><i class="fa-solid fa-user-tie"></i>Profile</a>
+        </li>
         <li>
           <a
             href="#"
@@ -129,6 +168,7 @@
               type="hidden"
               th:name="${_csrf.parameterName}"
               th:value="${_csrf.token}"
+              required
             />
           </form>
         </li>
