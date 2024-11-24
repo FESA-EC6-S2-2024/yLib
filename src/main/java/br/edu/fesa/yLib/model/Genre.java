@@ -1,57 +1,28 @@
 package br.edu.fesa.yLib.model;
 
-import jakarta.persistence.Basic;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import java.io.Serializable;
+import java.util.UUID;
+import lombok.*;
 
 /**
  * @author Grupo7
  */
 @Entity
 @Table(name = "TB_GENRE", schema = "LIBRARY")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Genre implements Serializable {
 
-  private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 2L;
 
   @Id
-  @Basic(optional = false)
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "ID_GENRE")
-  private int id;
+  @GeneratedValue(strategy = GenerationType.UUID)
+  @Column(name = "ID_GENRE", columnDefinition = "uuid", updatable = false, nullable = false)
+  private UUID id;
 
-  @Column(name = "DESCRIPTION", nullable = false, length = 255)
+  @Column(name = "DESCRIPTION", nullable = false, length = 256)
   private String description;
-
-  public Genre() {}
-
-  public Genre(String description) {
-    this.description = description;
-  }
-
-  public Genre(int id, String description) {
-    this.id = id;
-    this.description = description;
-  }
-
-  // Getters and Setters
-  public int getId() {
-    return id;
-  }
-
-  public void setId(int id) {
-    this.id = id;
-  }
-
-  public String getDescription() {
-    return description;
-  }
-
-  public void setDescription(String description) {
-    this.description = description;
-  }
 }

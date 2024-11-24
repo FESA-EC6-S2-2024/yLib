@@ -1,22 +1,11 @@
 package br.edu.fesa.yLib.model;
 
-import jakarta.persistence.Basic;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
-import jakarta.validation.constraints.Size;
-
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Date;
-
+import java.util.UUID;
+import lombok.*;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -25,15 +14,18 @@ import org.springframework.format.annotation.DateTimeFormat;
  */
 @Entity
 @Table(name = "TB_BOOK", schema = "LIBRARY")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Book implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
   @Id
-  @Basic(optional = false)
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "ID_BOOK")
-  private int id;
+  @GeneratedValue(strategy = GenerationType.UUID)
+  @Column(name = "ID_BOOK", columnDefinition = "UUID", updatable = false, nullable = false)
+  private UUID id;
 
   @NotBlank(message = "ISBN is required.")
   @Size(max = 20, message = "ISBN should not exceed 20 characters.")
@@ -79,140 +71,4 @@ public class Book implements Serializable {
   @Column(name = "SYNOPSIS", length = 2000)
   @Length(max = 2000, message = "Synopsis can not exceed 2000 characters")
   private String synopsis;
-
-  public Book() {
-  }
-
-  public Book(
-      String ISBN,
-      String title,
-      Genre genre,
-      Date publishedYear,
-      int availableUnits,
-      int totalUnits,
-      Author author,
-      Editor editor,
-      String image) {
-    this.ISBN = ISBN;
-    this.title = title;
-    this.genre = genre;
-    this.publishedYear = publishedYear;
-    this.availableUnits = availableUnits;
-    this.totalUnits = totalUnits;
-    this.author = author;
-    this.editor = editor;
-    this.image = image; // Adicionando o novo atributo
-  }
-
-  public Book(
-      int id,
-      String ISBN,
-      String title,
-      Genre genre,
-      Date publishedYear,
-      int availableUnits,
-      int totalUnits,
-      Author author,
-      Editor editor,
-      String image) {
-    this.id = id;
-    this.ISBN = ISBN;
-    this.title = title;
-    this.genre = genre;
-    this.publishedYear = publishedYear;
-    this.availableUnits = availableUnits;
-    this.totalUnits = totalUnits;
-    this.author = author;
-    this.editor = editor;
-    this.image = image; // Adicionando o novo atributo
-  }
-
-  // Getters e Setters
-  public int getId() {
-    return id;
-  }
-
-  public void setId(int id) {
-    this.id = id;
-  }
-
-  public String getISBN() {
-    return ISBN;
-  }
-
-  public void setISBN(String ISBN) {
-    this.ISBN = ISBN;
-  }
-
-  public String getTitle() {
-    return title;
-  }
-
-  public void setTitle(String title) {
-    this.title = title;
-  }
-
-  public Genre getGenre() {
-    return genre;
-  }
-
-  public void setGenre(Genre genre) {
-    this.genre = genre;
-  }
-
-  public Date getPublishedYear() {
-    return publishedYear;
-  }
-
-  public void setPublishedYear(Date publishedYear) {
-    this.publishedYear = publishedYear;
-  }
-
-  public int getAvailableUnits() {
-    return availableUnits;
-  }
-
-  public void setAvailableUnits(int availableUnits) {
-    this.availableUnits = availableUnits;
-  }
-
-  public int getTotalUnits() {
-    return totalUnits;
-  }
-
-  public void setTotalUnits(int totalUnits) {
-    this.totalUnits = totalUnits;
-  }
-
-  public Author getAuthor() {
-    return author;
-  }
-
-  public void setAuthor(Author author) {
-    this.author = author;
-  }
-
-  public Editor getEditor() {
-    return editor;
-  }
-
-  public void setEditor(Editor editor) {
-    this.editor = editor;
-  }
-
-  public String getImage() {
-    return image;
-  }
-
-  public void setImage(String image) {
-    this.image = image;
-  }
-
-  public String getSynopsis() {
-    return synopsis;
-  }
-
-  public void setSynopsis(String synopsis) {
-    this.synopsis = synopsis;
-  }
 }

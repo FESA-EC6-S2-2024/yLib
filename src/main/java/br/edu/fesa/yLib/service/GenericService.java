@@ -1,10 +1,8 @@
 package br.edu.fesa.yLib.service;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
- *
  * @author Grupo 7
  */
 public interface GenericService<T, ID> {

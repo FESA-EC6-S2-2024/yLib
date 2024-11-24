@@ -11,5 +11,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface NotificationRepository extends JpaRepository<Notification, UUID> {
-  Optional<Notification> findById(int id);
+  Optional<Notification> findById(UUID id);
 }

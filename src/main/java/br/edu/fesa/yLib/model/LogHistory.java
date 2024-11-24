@@ -1,34 +1,29 @@
 package br.edu.fesa.yLib.model;
 
 import br.edu.fesa.yLib.enumerator.HistoryType;
-import jakarta.persistence.Basic;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.UUID;
+import lombok.*;
 
 /**
  * @author Grupo7
  */
 @Entity
 @Table(name = "TB_LOG_HISTORY", schema = "LIBRARY")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class LogHistory implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
   @Id
-  @Basic(optional = false)
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "ID_LOG")
-  private int id;
+  @GeneratedValue(strategy = GenerationType.UUID)
+  @Column(name = "ID_LOG", columnDefinition = "uuid", updatable = false, nullable = false)
+  private UUID id;
 
   @Column(name = "ERROR_MESSAGE", nullable = false, length = 255)
   private String errorMessage;
@@ -43,64 +38,4 @@ public class LogHistory implements Serializable {
   @Enumerated(EnumType.STRING)
   @Column(name = "HISTORY_TYPE", nullable = false)
   private HistoryType historyType;
-
-  public LogHistory() {}
-
-  public LogHistory(
-      String errorMessage, LocalDateTime logDate, User user, HistoryType historyType) {
-    this.errorMessage = errorMessage;
-    this.logDate = logDate;
-    this.user = user;
-    this.historyType = historyType;
-  }
-
-  public LogHistory(
-      int id, String errorMessage, LocalDateTime logDate, User user, HistoryType historyType) {
-    this.id = id;
-    this.errorMessage = errorMessage;
-    this.logDate = logDate;
-    this.user = user;
-    this.historyType = historyType;
-  }
-
-  // Getters and Setters
-  public int getId() {
-    return id;
-  }
-
-  public void setId(int id) {
-    this.id = id;
-  }
-
-  public String getErrorMessage() {
-    return errorMessage;
-  }
-
-  public void setErrorMessage(String errorMessage) {
-    this.errorMessage = errorMessage;
-  }
-
-  public LocalDateTime getLogDate() {
-    return logDate;
-  }
-
-  public void setLogDate(LocalDateTime logDate) {
-    this.logDate = logDate;
-  }
-
-  public User getUser() {
-    return user;
-  }
-
-  public void setUser(User user) {
-    this.user = user;
-  }
-
-  public HistoryType getHistoryType() {
-    return historyType;
-  }
-
-  public void setHistoryType(HistoryType historyType) {
-    this.historyType = historyType;
-  }
 }

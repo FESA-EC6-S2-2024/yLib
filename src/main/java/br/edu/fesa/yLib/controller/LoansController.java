@@ -5,27 +5,26 @@ import br.edu.fesa.yLib.service.BookService;
 import br.edu.fesa.yLib.service.LoanService;
 import br.edu.fesa.yLib.service.UserService;
 import jakarta.validation.Valid;
-
+import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
 import org.springframework.web.bind.annotation.GetMapping;
 
+/**
+ * @author Grupo7
+ */
 @Controller
 @RequestMapping("/loans")
 public class LoansController {
 
-  @Autowired
-  private LoanService loanService;
+  @Autowired private LoanService loanService;
 
-  @Autowired
-  private UserService userService;
+  @Autowired private UserService userService;
 
-  @Autowired
-  private BookService bookService;
+  @Autowired private BookService bookService;
 
   @GetMapping
   public String listLoans(Model model) {
@@ -49,13 +48,14 @@ public class LoansController {
   }
 
   @GetMapping("/edit/{id}")
-  public String showEditForm(@PathVariable int id, Model model) {
+  public String showEditForm(@PathVariable UUID id, Model model) {
     model.addAttribute("editor", loanService.findById(id));
     return "loans/edit";
   }
 
   @PostMapping("/edit/{id}")
-  public String updateLoan(@PathVariable int id, @Valid @ModelAttribute Loan loan, BindingResult result) {
+  public String updateLoan(
+      @PathVariable UUID id, @Valid @ModelAttribute Loan loan, BindingResult result) {
     if (result.hasErrors()) {
       return "loans/edit";
     }
@@ -64,7 +64,7 @@ public class LoansController {
   }
 
   @GetMapping("/delete/{id}")
-  public String deleteLoan(@PathVariable int id) {
+  public String deleteLoan(@PathVariable UUID id) {
     loanService.delete(id);
     return "redirect:/loans";
   }

@@ -11,5 +11,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface LogHistoryRepository extends JpaRepository<LogHistory, UUID> {
-  Optional<LogHistory> findById(int id);
+  Optional<LogHistory> findById(UUID id);
 }
