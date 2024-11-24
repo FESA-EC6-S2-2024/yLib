@@ -1,10 +1,16 @@
 @font-face {
-    font-family: 'ChiantiWin95BT';
-    src: url('/fonts/chiantibt_bold.ttf') format('truetype');
-    font-weight: bold;
-    font-style: normal;
+  font-family: 'ChiantiWin95BT';
+  src: url('/fonts/chiantibt_bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
 }
 
-.custom-font {
-    font-family: 'ChiantiWin95BT', sans-serif;
+.brand-font {
+  font-family: 'ChiantiWin95BT', sans-serif;
+}
+
+.poppins-regular {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  font-style: normal;
 }
