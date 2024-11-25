@@ -53,10 +53,6 @@ public class SecurityConfig {
                     .requestMatchers(
                         "/", "/home", "/auth/login", "/auth/register", "/css/**", "/images/**")
                     .permitAll()
-                    .requestMatchers("/loans/**")
-                    .hasAnyRole(UserType.ADMIN.name(), UserType.LIBRARIAN.name())
-                    .requestMatchers("/loans/client")
-                    .hasRole(UserType.CLIENT.name())
                     .anyRequest()
                     .authenticated())
         .formLogin(

@@ -1,11 +1,15 @@
 package br.edu.fesa.yLib.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
+import br.edu.fesa.yLib.enumerator.LoanStatus;
 
 /**
  * @author Grupo7
@@ -25,23 +29,29 @@ public class Loan implements Serializable {
   @Column(name = "ID_LOAN", columnDefinition = "uuid", updatable = false, nullable = false)
   private UUID id;
 
+  @Column(name = "STATUS", nullable = false)
+  private LoanStatus status;
+
   @Column(name = "DUE_DATE", nullable = false)
-  private LocalDateTime dueDate;
+  @Future(message = "Due date must be in the future")
+  @DateTimeFormat(pattern = "yyyy-MM-dd")
+  private LocalDate dueDate;
 
   @Column(name = "RETURN_DATE")
-  private LocalDateTime returnDate;
+  @DateTimeFormat(pattern = "yyyy-MM-dd")
+  private LocalDate returnDate;
 
   @Column(name = "LOAN_DATE", nullable = false)
-  private LocalDateTime loanDate;
+  @DateTimeFormat(pattern = "yyyy-MM-dd")
+  private LocalDate loanDate;
 
+  @NotNull(message = "User is required")
   @ManyToOne(optional = false)
   @JoinColumn(name = "ID_USER", referencedColumnName = "ID_USER")
   private User user;
 
-  @ManyToMany
-  @JoinTable(
-      name = "TB_LOAN_BOOK",
-      joinColumns = @JoinColumn(name = "ID_LOAN"),
-      inverseJoinColumns = @JoinColumn(name = "ID_BOOK"))
-  private List<Book> books;
+  @NotNull(message = "Book is required")
+  @ManyToOne(optional = false, cascade = CascadeType.ALL)
+  @JoinColumn(name = "ID_BOOK", referencedColumnName = "ID_BOOK")
+  private Book book;
 }

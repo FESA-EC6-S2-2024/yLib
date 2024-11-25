@@ -5,7 +5,8 @@ package br.edu.fesa.yLib.enumerator;
  */
 public enum LoanStatus {
   BORROWED(0),
-  LATE(1);
+  RETURNED(1),
+  CANCELED(2);
 
   private final int id;
 

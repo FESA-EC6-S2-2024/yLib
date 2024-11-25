@@ -1,24 +1,118 @@
 <!DOCTYPE html>
-<html data-theme="light" xmlns:th="http://www.thymeleaf.org" lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Create User</title>
-  <link rel="icon" type="image/x-icon" href="/favicon.ico">
-  <link rel="stylesheet" href="/css/styles.css">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.14/dist/full.min.css" rel="stylesheet" type="text/css"/>
-</head>
-<body class="bg-purple-50 min-h-screen">
+<html th:replace="~{layouts/base.html :: layout(~{::title}, ~{::section})}">
+  <head>
+    <title>Create User</title>
+  </head>
+  <body>
+    <section class="md:h-full flex items-center justify-center">
+      <div class="md:h-auto h-full w-full max-w-4xl bg-white shadow-lg rounded-lg p-6">
+        <h2 class="text-2xl font-semibold text-gray-800 mb-6">Create User</h2>
+        <div
+          th:replace="~{fragments/form :: form('/users/create', 'user', ~{::#content})}"
+        >
+          <div id="content" class="h-max-96 form-section">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-6">
+              <!-- Column 1 -->
+              <div>
+                <div class="mb-4 form-control w-full">
+                  <div class="label">
+                    <span class="label-text">Name</span>
+                  </div>
+                  <input
+                    type="text"
+                    th:field="*{name}"
+                    id="name"
+                    class="input input-bordered w-full"
+                  />
+                  <p
+                    class="text-red-500 text-xs mt-1"
+                    th:if="${#fields.hasErrors('name')}"
+                    th:errors="*{name}"
+                  >
+                    Name error
+                  </p>
+                </div>
 
-<div th:replace="~{fragments/nav.html}"></div>
+                <div class="mb-4 form-control w-full">
+                  <div class="label">
+                    <span class="label-text">Email</span>
+                  </div>
+                  <input
+                    type="email"
+                    th:field="*{email}"
+                    id="email"
+                    class="input input-bordered w-full"
+                  />
+                  <p
+                    class="text-red-500 text-xs mt-1"
+                    th:if="${#fields.hasErrors('email')}"
+                    th:errors="*{email}"
+                  >
+                    Email error
+                  </p>
+                </div>
+              </div>
 
-<div class="flex items-center justify-center min-h-screen">
-  <div class="w-full max-w-md bg-white shadow-lg rounded-lg p-6">
-    <h2 class="text-2xl font-semibold text-gray-800 mb-6">Create User</h2>
-    <div th:insert="~{fragments/userForm(actionUrl='/users/create', buttonText='Create User')}"></div>
-  </div>
-</div>
+              <!-- Column 2 -->
+              <div>
+                <div class="mb-4 form-control w-full">
+                  <div class="label">
+                    <span class="label-text">Password</span>
+                  </div>
+                  <input
+                    type="password"
+                    th:field="*{password}"
+                    id="password"
+                    class="input input-bordered w-full"
+                  />
+                  <p
+                    class="text-red-500 text-xs mt-1"
+                    th:if="${#fields.hasErrors('password')}"
+                    th:errors="*{password}"
+                  >
+                    Password error
+                  </p>
+                </div>
 
-</body>
+                <div class="mb-4 form-control w-full">
+                  <div class="label">
+                    <span class="label-text">User Type</span>
+                  </div>
+                  <select
+                    th:field="*{userType}"
+                    id="userType"
+                    class="input input-bordered w-full"
+                  >
+                    <option value="" selected>Select a user type</option>
+                    <option
+                      th:each="type : ${userTypes}"
+                      th:value="${type}"
+                      th:text="${type}"
+                    ></option>
+                  </select>
+                  <p
+                    class="text-red-500 text-xs mt-1"
+                    th:if="${#fields.hasErrors('userType')}"
+                    th:errors="*{userType}"
+                  >
+                    User type error
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="flex justify-end mt-6">
+              <button
+                type="submit"
+                class="w-full py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-600 font-bold"
+              >
+                <span>Submit</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
 </html>

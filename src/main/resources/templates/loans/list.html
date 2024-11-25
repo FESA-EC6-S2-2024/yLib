@@ -5,47 +5,69 @@
 </head>
 <body>
     <section class="h-full flex items-center justify-center">
-        <div class="w-full max-w-4xl bg-white shadow-lg rounded-lg p-6">
+        <div class="w-full max-w-6xl bg-white shadow-lg rounded-lg p-6">
             <div class="flex justify-between items-center mb-6">
-                <h2 class="text-2xl font-semibold text-gray-800 mb-6">Loans List</h2>
-                <a th:href="@{/loans/create}" class="bg-purple-600 text-white py-2 px-4 rounded-lg mb-4">Create New Loan</a>
+                <h2 class="text-2xl font-semibold text-gray-800">Loans List</h2>
+                <a
+                  sec:authorize="hasAnyRole('LIBRARIAN', 'ADMIN')"
+                    th:href="@{/loans/create}"
+                    class="btn btn-primary bg-purple-600 text-white rounded-lg hover:bg-purple-700 px-4 py-2"
+                    >Create New Loan</a
+                >
             </div>
-            <div class="overflow-x-auto">
-                <table class="w-full text-left bg-white rounded-lg shadow-lg">
+            <div class="overflow-x-auto max-h-96">
+                <table class="table table-pin-rows w-full text-left bg-white rounded-lg shadow-lg">
                     <thead class="bg-purple-200 text-purple-900">
-                    <tr>
-                        <th class="px-4 py-2">Loan ID</th>
-                        <th class="px-4 py-2">User</th>
-                        <th class="px-4 py-2">Books</th>
-                        <th class="px-4 py-2">Loan Date</th>
-                        <th class="px-4 py-2">Due Date</th>
-                        <th class="px-4 py-2">Return Date</th>
-                        <th class="px-4 py-2">Actions</th>
-                    </tr>
+                        <tr>
+                            <th class="px-4 py-2">User</th>
+                            <th class="px-4 py-2">Books</th>
+                            <th class="px-4 py-2">Status</th>
+                            <th class="px-4 py-2">Loan Date</th>
+                            <th class="px-4 py-2">Due Date</th>
+                            <th class="px-4 py-2">Return Date</th>
+                            <th class="px-4 py-2" sec:authorize="hasAnyRole('LIBRARIAN', 'ADMIN')">Actions</th>
+                        </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="loan : ${loans}" class="hover:bg-purple-100">
-                        <td class="border-t px-4 py-2" th:text="${loan.id}">Loan ID</td>
-                        <td class="border-t px-4 py-2" th:text="${loan.user.name}">User</td>
-                        
-                        <!-- Displaying multiple books in the loan -->
-                        <td class="border-t px-4 py-2">
-                            <ul>
-                                <li th:each="book : ${loan.books}" th:text="${book.title}">Book Title</li>
-                            </ul>
-                        </td>
-                        
-                        <td class="border-t px-4 py-2" th:text="${#dates.format(loan.loanDate, 'yyyy-MM-dd')}">Loan Date</td>
-                        <td class="border-t px-4 py-2" th:text="${#dates.format(loan.dueDate, 'yyyy-MM-dd')}">Due Date</td>
-                        <td class="border-t px-4 py-2" th:text="${#dates.format(loan.returnDate, 'yyyy-MM-dd')}">Return Date</td>
-                        
-                        <td class="border-t px-4 py-2">
-                            <a th:href="@{/loans/edit/{id}(id=${loan.id})}"
-                               class="btn btn-sm bg-blue-500 text-white rounded-lg hover:bg-blue-600">Edit</a>
-                            <a th:href="@{/loans/delete/{id}(id=${loan.id})}" onclick="return confirm('Are you sure?')"
-                               class="btn btn-sm bg-red-500 text-white rounded-lg hover:bg-red-600">Delete</a>
-                        </td>
-                    </tr>
+                        <tr th:each="loan : ${loans}" class="hover:bg-purple-100">
+                            <td class="border-t px-4 py-2" th:text="${loan.user?.name}">
+                                User
+                            </td>
+                            <td class="border-t px-4 py-2" th:text="${loan.book.title}">
+                                Book
+                            </td>
+                            <td class="border-t px-4 py-2" th:text="${loan.status}">
+                                Status
+                            </td>
+                            <td class="border-t px-4 py-2" th:text="${#temporals.format(loan.loanDate, 'dd-MM-yyyy')}">
+                                Loan Date
+                            </td>
+                            <td class="border-t px-4 py-2" th:text="${#temporals.format(loan.dueDate, 'dd-MM-yyyy')}">
+                                Due Date
+                            </td>
+                            <td class="border-t px-4 py-2" th:text="${#temporals.format(loan.returnDate, 'dd-MM-yyyy')}">
+                                Return Date
+                            </td>
+                            <td class="border-t px-4 py-2 flex space-x-2 h-full" sec:authorize="hasAnyRole('LIBRARIAN', 'ADMIN')">
+                                <a
+                                    th:href="@{/loans/complete/{id}(id=${loan.id})}"
+                                    class="btn btn-sm bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+                                    th:if="${loan.returnDate == null} and ${loan.status.name == 'BORROWED'}"
+                                >Complete</a>
+                                <a
+                                    th:href="@{/loans/undo/{id}(id=${loan.id})}"
+                                    class="btn btn-sm bg-green-500 text-white rounded-lg hover:bg-green-600"
+                                    th:if="${loan.returnDate != null} and ${loan.status.name == 'RETURNED'}"
+                                >Undo</a>
+                                
+                                <a
+                                    th:href="@{/loans/cancel/{id}(id=${loan.id})}"
+                                    onclick="return confirm('Are you sure?')"
+                                    class="btn btn-sm bg-red-500 text-white rounded-lg hover:bg-red-600"
+                                    th:classappend="${loan.status.name == 'CANCELED'} ? 'btn-disabled' : ''"
+                                    >Cancel</a>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>

@@ -70,11 +70,13 @@ public class BooksController {
     return "redirect:/books";
   }
 
-  @GetMapping("/edit/{id}")
-  public String showEditForm(@PathVariable UUID id, Model model) {
-    Optional<Book> bookOpt = bookService.findById(id);
-    if (bookOpt.isEmpty()) {
-      return "redirect:/books";
+    @GetMapping("/create")
+    public String showCreateForm(Model model) {
+        model.addAttribute("book", new Book());
+        model.addAttribute("genres", genreService.findAll());
+        model.addAttribute("authors", authorService.findAll());
+        model.addAttribute("editors", editorService.findAll());
+        return "books/create";
     }
     model.addAttribute("book", bookOpt.get());
     model.addAttribute("genres", genreService.findAll());
@@ -83,17 +85,16 @@ public class BooksController {
     return "books/edit";
   }
 
-  @PostMapping("/edit/{id}")
-  public String updateBook(
-      @PathVariable UUID id,
-      @Valid @ModelAttribute("book") Book book,
-      BindingResult result,
-      Model model) {
-    if (result.hasErrors()) {
-      model.addAttribute("genres", genreService.findAll());
-      model.addAttribute("authors", authorService.findAll());
-      model.addAttribute("editors", editorService.findAll());
-      return "books/edit";
+    @PostMapping("/create")
+    public String createBook(@Valid @ModelAttribute Book book, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            model.addAttribute("genres", genreService.findAll());
+            model.addAttribute("authors", authorService.findAll());
+            model.addAttribute("editors", editorService.findAll());
+            return "books/create";
+        }
+        bookService.createBook(book);
+        return "redirect:/books";
     }
     bookService.updateBook(id, book);
     return "redirect:/books";
@@ -113,7 +114,7 @@ public class BooksController {
     }
 
     @PostMapping("/edit/{id}")
-    public String updateBook(@PathVariable int id, @Valid @ModelAttribute("book") Book book, BindingResult result, Model model) {
+    public String updateBook(@PathVariable int id, @Valid @ModelAttribute Book book, BindingResult result, Model model) {
         if (result.hasErrors()) {
             model.addAttribute("genres", genreService.findAll());
             model.addAttribute("authors", authorService.findAll());
@@ -130,6 +131,7 @@ public class BooksController {
         return "redirect:/books";
     }
 
+    @PreAuthorize("hasAnyRole('CLIENT', 'ADMIN', 'LIBRARIAN')")
     @GetMapping("/search")
     public String searchBooks(@ModelAttribute BookSearchOptionsDto searchOptions, Model model) {
         BookSearchResultDto result = bookService.searchBooks(

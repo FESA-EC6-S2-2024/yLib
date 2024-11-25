@@ -152,30 +152,40 @@
                 <div class="card-body xl:p-8 md:p-2">
                   <div class="tooltip" th:data-tip="${book.title}">
                     <h2
-                      class="font-semibold text-xs lg:text-base  overflow-hidden   truncate"
+                      class="font-semibold text-xs lg:text-base overflow-hidden truncate"
                       th:text="${book.title}"
                     ></h2>
                   </div>
                   <p
                     th:text="${book.synopsis}"
-                    class="text-xs lg:text-base   overflow-hidden  truncate"
+                    class="text-xs lg:text-base overflow-hidden truncate"
                   ></p>
+                  <p
+                    class="text-right text-xs lg:text-base overflow-hidden truncate"
+                  >
+                    Units:
+                    <span th:text="${book.availableUnits}"></span>
+                  </p>
                   <div class="card-actions justify-end">
                     <a
                       class="btn bg-purple-200 btn-sm xl:btn-md"
                       th:href="@{/books/edit/{id}(id=${book.id})}"
+                      sec:authorize="hasAnyRole('LIBRARIAN', 'ADMIN')"
                     >
                       <i class="fa-solid fa-pencil"></i>
                     </a>
                     <a
                       class="btn bg-purple-400 btn-sm xl:btn-md"
                       th:href="@{/books/edit/{id}(id=${book.id})}"
+                      sec:authorize="hasAnyRole('LIBRARIAN', 'ADMIN')"
                     >
                       <i class="fa-solid fa-basket-shopping"></i>
                     </a>
                     <a
                       class="btn btn-error btn-sm xl:btn-md"
-                      th:href="@{/books/edit/{id}(id=${book.id})}"
+                      th:href="@{/books/delete/{id}(id=${book.id})}"
+                      onclick="confirm('Are you sure?')"
+                      sec:authorize="hasAnyRole('LIBRARIAN', 'ADMIN')"
                     >
                       <i class="fa-solid fa-trash"></i>
                     </a>

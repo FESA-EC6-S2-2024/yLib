@@ -2,12 +2,6 @@
 <html th:replace="~{layouts/base.html :: layout(~{::title}, ~{::section})}">
   <head>
     <title>Create Loan</title>
-    <style>
-      /* Optional: additional styles to manage form padding */
-      .form-section {
-        padding-top: 1.5rem; /* Adjust top padding */
-      }
-    </style>
   </head>
   <body>
     <section class="h-full flex items-center justify-center">
@@ -26,7 +20,8 @@
                     <span class="label-text">User</span>
                   </div>
                   <select
-                    th:field="*{user.id}"
+                    name="user"
+                    th:field="*{user}"
                     id="user"
                     class="input input-bordered w-full"
                   >
@@ -54,6 +49,7 @@
                   <input
                     type="date"
                     th:field="*{loanDate}"
+                    th:value="*{loanDate}"
                     id="loanDate"
                     class="input input-bordered w-full"
                   />
@@ -74,6 +70,7 @@
                   <input
                     type="date"
                     th:field="*{dueDate}"
+                    th:value="*{dueDate}"
                     id="dueDate"
                     class="input input-bordered w-full"
                   />
@@ -92,15 +89,15 @@
                 <!-- Books Selection -->
                 <div class="mb-4 form-control w-full">
                   <div class="label">
-                    <span class="label-text">Books</span>
+                    <span class="label-text">Book</span>
                   </div>
                   <select
-                    th:field="*{books}"
-                    id="books"
+                    th:field="*{book}"
+                    id="book"
                     class="input input-bordered w-full"
-                    multiple="multiple"
+                    name="book"
                   >
-                    <option value="-1" disabled>Select books for the loan</option>
+                    <option value="">Select a book</option>
                     <option
                       th:each="book : ${books}"
                       th:value="${book.id}"
@@ -109,32 +106,14 @@
                   </select>
                   <p
                     class="text-red-500 text-xs mt-1"
-                    th:if="${#fields.hasErrors('books')}"
-                    th:errors="*{books}"
+                    th:if="${#fields.hasErrors('book')}"
+                    th:errors="*{book}"
                   >
                     Books error
                   </p>
                 </div>
 
                 <!-- Return Date (optional) -->
-                <div class="mb-4 form-control w-full">
-                  <div class="label">
-                    <span class="label-text">Return Date</span>
-                  </div>
-                  <input
-                    type="date"
-                    th:field="*{returnDate}"
-                    id="returnDate"
-                    class="input input-bordered w-full"
-                  />
-                  <p
-                    class="text-red-500 text-xs mt-1"
-                    th:if="${#fields.hasErrors('returnDate')}"
-                    th:errors="*{returnDate}"
-                  >
-                    Return Date error
-                  </p>
-                </div>
               </div>
             </div>
 
