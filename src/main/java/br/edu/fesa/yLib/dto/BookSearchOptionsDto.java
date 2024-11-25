@@ -2,6 +2,9 @@ package br.edu.fesa.yLib.dto;
 
 import br.edu.fesa.yLib.util.Constants;
 
+/**
+ * @author Grupo_7
+ */
 public class BookSearchOptionsDto {
   private String keyword;
   private String editor = null;
@@ -66,5 +69,4 @@ public class BookSearchOptionsDto {
   public void setPageSize(int pageSize) {
     this.pageSize = pageSize;
   }
-
 }

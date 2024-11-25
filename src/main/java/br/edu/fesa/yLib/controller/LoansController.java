@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.GetMapping;
 
 /**
- * @author Grupo7
+ * @author Grupo_7
  */
 @Controller
 @RequestMapping("/loans")
@@ -41,7 +41,6 @@ public class LoansController {
     model.addAttribute("loans", loanService.findAll());
     return "loans/list";
   }
-
 
   @GetMapping("/create")
   public String showCreateForm(Model model) {
@@ -72,19 +71,19 @@ public class LoansController {
   }
 
   @GetMapping("/complete/{id}")
-  public String completeLoan(@PathVariable int id) {
+  public String completeLoan(@PathVariable UUID id) {
     loanService.completeLoan(id);
     return "redirect:/loans";
   }
 
   @GetMapping("/undo/{id}")
-  public String undoLoan(@PathVariable int id) {
+  public String undoLoan(@PathVariable UUID id) {
     loanService.undoLoan(id);
     return "redirect:/loans";
   }
 
   @GetMapping("/cancel/{id}")
-  public String deleteLoan(@PathVariable int id) {
+  public String deleteLoan(@PathVariable UUID id) {
     loanService.canceLoan(id);
     return "redirect:/loans";
   }

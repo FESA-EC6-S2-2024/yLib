@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * @author Grupo7
+ * @author Grupo_7
  */
 @Service
 public class AuthorService {

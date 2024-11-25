@@ -5,7 +5,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * @author Grupo7
+ * @author Grupo_7
  */
 public interface GenericoDAO<E> extends Serializable {
 

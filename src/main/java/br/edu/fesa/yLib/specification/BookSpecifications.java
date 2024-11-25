@@ -1,12 +1,15 @@
 package br.edu.fesa.yLib.specification;
 
+import br.edu.fesa.yLib.model.Book;
 import org.springframework.data.jpa.domain.Specification;
 
-import br.edu.fesa.yLib.model.Book;
-
+/**
+ * @author Grupo_7
+ */
 public class BookSpecifications {
   public static Specification<Book> hasKeyword(String keyword) {
-    return (root, query, cb) -> cb.like(cb.lower(root.get("title")), "%" + keyword.toLowerCase() + "%");
+    return (root, query, cb) ->
+        cb.like(cb.lower(root.get("title")), "%" + keyword.toLowerCase() + "%");
   }
 
   public static Specification<Book> hasEditor(String editorId) {

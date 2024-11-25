@@ -1,9 +1,11 @@
 package br.edu.fesa.yLib.dto;
 
+import br.edu.fesa.yLib.model.Book;
 import org.springframework.data.domain.Page;
 
-import br.edu.fesa.yLib.model.Book;
-
+/**
+ * @author Grupo_7
+ */
 public class BookSearchResultDto {
   private Page<Book> bookPage;
   private long totalItems;

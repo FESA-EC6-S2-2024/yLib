@@ -1,7 +1,7 @@
 package br.edu.fesa.yLib.exception;
 
 /**
- * @author Grupo7
+ * @author Grupo_7
  */
 public class PersistencyException extends Exception {
 

@@ -12,7 +12,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 /**
- * @author Grupo7
+ * @author Grupo_7
  */
 public abstract class AbstractDAO<T> implements GenericoDAO<T> {
 

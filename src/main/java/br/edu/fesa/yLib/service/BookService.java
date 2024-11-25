@@ -20,7 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * @author Grupo7
+ * @author Grupo_7
  */
 @Service
 public class BookService {
@@ -69,21 +69,29 @@ public class BookService {
     bookRepository.deleteById(id);
   }
 
-  public BookSearchResultDto searchBooks(String keyword, String editor, String genre, String author, String sort, int page,
-      int pageSize) throws IllegalArgumentException {
+  public BookSearchResultDto searchBooks(
+      String keyword,
+      String editor,
+      String genre,
+      String author,
+      String sort,
+      int page,
+      int pageSize)
+      throws IllegalArgumentException {
 
     pageSize = Math.min(pageSize, Constants.Defaults.MAX_PAGE_SIZE);
 
     Pageable pageable = PageRequest.of(page - 1, pageSize, Sort.by(sort));
 
-    Specification<Book> spec = Specification.where(keyword != null ? BookSpecifications.hasKeyword(keyword) : null)
-        .and(!StringUtils.isEmpty(editor) ? BookSpecifications.hasEditor(editor) : null)
-        .and(!StringUtils.isEmpty(genre) ? BookSpecifications.hasGenre(genre) : null)
-        .and(!StringUtils.isEmpty(author) ? BookSpecifications.hasAuthor(author) : null);
+    Specification<Book> spec =
+        Specification.where(keyword != null ? BookSpecifications.hasKeyword(keyword) : null)
+            .and(!StringUtils.isEmpty(editor) ? BookSpecifications.hasEditor(editor) : null)
+            .and(!StringUtils.isEmpty(genre) ? BookSpecifications.hasGenre(genre) : null)
+            .and(!StringUtils.isEmpty(author) ? BookSpecifications.hasAuthor(author) : null);
 
     Page<Book> result = bookRepository.findAll(spec, pageable);
     long count = bookRepository.count(spec);
-    
+
     return new BookSearchResultDto(result, count);
   }
 }

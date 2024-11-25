@@ -1,7 +1,7 @@
 package br.edu.fesa.yLib.enumerator;
 
 /**
- * @author Grupo7
+ * @author Grupo_7
  */
 public enum LogType {
   ERROR(0),

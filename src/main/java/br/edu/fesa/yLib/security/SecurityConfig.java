@@ -1,6 +1,5 @@
 package br.edu.fesa.yLib.security;
 
-import br.edu.fesa.yLib.enumerator.UserType;
 import br.edu.fesa.yLib.model.User;
 import br.edu.fesa.yLib.repository.UserRepository;
 import java.util.List;
@@ -20,7 +19,7 @@ import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
 import org.springframework.security.web.savedrequest.RequestCache;
 
 /**
- * @author Grupo7
+ * @author Grupo_7
  */
 @Configuration
 @EnableWebSecurity

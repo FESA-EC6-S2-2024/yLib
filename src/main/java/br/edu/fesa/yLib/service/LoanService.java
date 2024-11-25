@@ -5,29 +5,28 @@ import br.edu.fesa.yLib.model.Book;
 import br.edu.fesa.yLib.model.Loan;
 import br.edu.fesa.yLib.repository.BookRepository;
 import br.edu.fesa.yLib.repository.LoanRepository;
+import jakarta.validation.Valid;
 import java.util.List;
 import java.util.UUID;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * @author Grupo7
+ * @author Grupo_7
  */
 @Service
 public class LoanService {
 
   @Autowired private LoanRepository loanRepository;
 
-  @Autowired
-  private BookRepository bookRepository;
+  @Autowired private BookRepository bookRepository;
 
   public List<Loan> findAll() {
     return loanRepository.findAll();
   }
 
-  public List<Loan> findAllByUserId(int userId) {
+  public List<Loan> findAllByUserId(UUID userId) {
     return loanRepository.findByUserId(userId);
   }
 
@@ -48,7 +47,7 @@ public class LoanService {
   @Transactional
   public Loan completeLoan(UUID loanId) {
     Loan loan = loanRepository.findById(loanId).get();
-    
+
     Book book = loan.getBook();
     book.returnBook();
     bookRepository.save(book);
@@ -60,7 +59,7 @@ public class LoanService {
   @Transactional
   public Loan undoLoan(UUID loanId) {
     Loan loan = loanRepository.findById(loanId).get();
-    
+
     Book book = loan.getBook();
     book.undoBorrowBook();
     bookRepository.save(book);
@@ -72,7 +71,7 @@ public class LoanService {
   @Transactional
   public Loan canceLoan(UUID loanId) {
     Loan loan = loanRepository.findById(loanId).get();
-    
+
     Book book = loan.getBook();
     book.returnBook();
     bookRepository.save(book);

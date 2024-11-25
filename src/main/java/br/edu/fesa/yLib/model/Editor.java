@@ -7,7 +7,7 @@ import java.util.UUID;
 import lombok.*;
 
 /**
- * @author Grupo7
+ * @author Grupo_7
  */
 @Entity
 @Table(name = "TB_EDITORS", schema = "LIBRARY")

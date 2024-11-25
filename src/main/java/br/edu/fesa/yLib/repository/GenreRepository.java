@@ -9,5 +9,4 @@ import org.springframework.stereotype.Repository;
  * @author Grupo_7
  */
 @Repository
-public interface GenreRepository extends JpaRepository<Genre, UUID> {
-}
+public interface GenreRepository extends JpaRepository<Genre, UUID> {}

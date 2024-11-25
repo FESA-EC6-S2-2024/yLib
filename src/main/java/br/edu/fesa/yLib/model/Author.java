@@ -12,7 +12,7 @@ import org.hibernate.annotations.UuidGenerator;
 import org.springframework.format.annotation.DateTimeFormat;
 
 /**
- * @author Grupo7
+ * @author Grupo_7
  */
 @Entity
 @Table(name = "TB_AUTHORS", schema = "LIBRARY")
@@ -27,7 +27,7 @@ public class Author implements Serializable {
   @Id
   @GeneratedValue
   @UuidGenerator
-  @Column(name = "ID_AUTHORS", columnDefinition = "UUID", updatable = false, nullable = false)
+  @Column(name = "ID_AUTHOR", columnDefinition = "UUID", updatable = false, nullable = false)
   private UUID id;
 
   @NotBlank(message = "Name is required.")

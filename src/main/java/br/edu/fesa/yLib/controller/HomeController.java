@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
- * @author Grupo7
+ * @author Grupo_7
  */
 @Controller
 @RequestMapping("/")

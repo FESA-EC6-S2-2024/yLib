@@ -5,7 +5,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 /**
- * @author Grupo7
+ * @author Grupo_7
  */
 public class CustomUserDetails implements UserDetails {
   private String email;

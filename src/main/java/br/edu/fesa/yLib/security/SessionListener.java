@@ -13,6 +13,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextImpl;
 import org.springframework.stereotype.Component;
 
+/**
+ * @author Grupo_7
+ */
 @Component
 public class SessionListener implements HttpSessionListener, HttpSessionAttributeListener {
 

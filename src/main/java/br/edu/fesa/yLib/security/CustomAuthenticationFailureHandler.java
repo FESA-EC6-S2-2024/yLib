@@ -7,14 +7,13 @@ import br.edu.fesa.yLib.service.LoggingService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.stereotype.Component;
 
 /**
- * @author Grupo7
+ * @author Grupo_7
  */
 @Component
 public class CustomAuthenticationFailureHandler implements AuthenticationFailureHandler {

@@ -11,7 +11,7 @@ import org.springframework.security.web.authentication.logout.LogoutSuccessHandl
 import org.springframework.stereotype.Component;
 
 /**
- * @author Grupo7
+ * @author Grupo_7
  */
 @Component
 public class CustomLogoutSuccessHandler implements LogoutSuccessHandler {

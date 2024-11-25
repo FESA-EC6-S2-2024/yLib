@@ -3,7 +3,7 @@ package br.edu.fesa.yLib.service;
 import java.util.List;
 
 /**
- * @author Grupo 7
+ * @author Grupo_7
  */
 public interface GenericService<T, ID> {
 

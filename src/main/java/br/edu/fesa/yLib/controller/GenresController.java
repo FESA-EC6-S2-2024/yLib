@@ -12,7 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * @author Grupo7
+ * @author Grupo_7
  */
 @Controller
 @RequestMapping("/genres")
