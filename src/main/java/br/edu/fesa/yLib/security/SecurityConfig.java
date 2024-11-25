@@ -32,8 +32,8 @@ public class SecurityConfig {
     http
         .authorizeHttpRequests((authorize) -> authorize
             .requestMatchers("/", "/home", "/auth/register", "/css/**", "/images/**").permitAll()
-            .requestMatchers("/loans/**").hasAnyRole(UserType.ADMIN.name(), UserType.LIBRARIAN.name())
-            .requestMatchers("/loans/client").hasRole(UserType.CLIENT.name())
+            // .requestMatchers("/loans/**").hasAnyRole(UserType.ADMIN.name(), UserType.LIBRARIAN.name())
+            // .requestMatchers("/loans/client").hasRole(UserType.CLIENT.name())
             .anyRequest().authenticated())
         .formLogin((form) -> form
             .loginPage("/auth/login")

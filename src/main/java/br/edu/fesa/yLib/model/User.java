@@ -10,6 +10,7 @@ import jakarta.validation.constraints.Size;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * @author Grupo_7
@@ -49,6 +50,7 @@ public class User implements Serializable {
     private String secret;
 
     @Enumerated(EnumType.STRING)
+    @NotNull(message = "User type is required.")
     @Column(name = "USER_TYPE", nullable = false)
     private UserType userType;
 
@@ -62,6 +64,10 @@ public class User implements Serializable {
     @NotNull(message = "2FA usage indication is required.")
     @Column(name = "IS_USING_2FA", nullable = false)
     private boolean isUsing2FA;
+
+    // loans a user has
+    @OneToMany(mappedBy = "user")
+    private List<Loan> loans;
 
     @Transient
     private String confirmEmail;

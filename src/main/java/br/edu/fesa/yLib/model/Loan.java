@@ -1,6 +1,7 @@
 package br.edu.fesa.yLib.model;
 
 import jakarta.persistence.Basic;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -8,12 +9,18 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Future;
+import jakarta.validation.constraints.NotNull;
+
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+import br.edu.fesa.yLib.enumerator.LoanStatus;
 
 /**
  * @author Grupo7
@@ -25,55 +32,74 @@ public class Loan implements Serializable {
   private static final long serialVersionUID = 1L;
 
   @Id
-  @Basic(optional = false)
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "ID_LOAN")
   private int id;
 
+  @Column(name = "STATUS", nullable = false)
+  private LoanStatus status;
+
   @Column(name = "DUE_DATE", nullable = false)
-  private LocalDateTime dueDate;
+  @Future(message = "Due date must be in the future")
+  @DateTimeFormat(pattern = "yyyy-MM-dd")
+  private LocalDate dueDate;
 
   @Column(name = "RETURN_DATE")
-  private LocalDateTime returnDate;
+  @DateTimeFormat(pattern = "yyyy-MM-dd")
+  private LocalDate returnDate;
 
   @Column(name = "LOAN_DATE", nullable = false)
-  private LocalDateTime loanDate;
+  @DateTimeFormat(pattern = "yyyy-MM-dd")
+  private LocalDate loanDate;
 
+  @NotNull(message = "User is required")
   @ManyToOne(optional = false)
   @JoinColumn(name = "ID_USER", referencedColumnName = "ID_USER")
   private User user;
 
-  // Many-to-many relationship with Book (one loan can have multiple books)
-  @ManyToMany
-  @JoinTable(name = "TB_LOAN_BOOK", joinColumns = @JoinColumn(name = "ID_LOAN"), inverseJoinColumns = @JoinColumn(name = "ID_BOOK"))
-  private List<Book> books;
+  @NotNull(message = "Book is required")
+  @ManyToOne(optional = false, cascade = CascadeType.ALL)
+  @JoinColumn(name = "ID_BOOK", referencedColumnName = "ID_BOOK")
+  private Book book;
 
   public Loan() {
-  }
-
-  public Loan(LocalDateTime dueDate, LocalDateTime loanDate, User user, List<Book> books) {
-    this.dueDate = dueDate;
-    this.loanDate = loanDate;
-    this.user = user;
-    this.books = books;
+    this.loanDate = LocalDateTime.now().toLocalDate();
+    this.dueDate = this.loanDate.plusDays(7);
+    this.status = LoanStatus.BORROWED;
   }
 
   public Loan(
       int id,
-      LocalDateTime dueDate,
-      LocalDateTime returnDate,
-      LocalDateTime loanDate,
+      LoanStatus status,
+      LocalDate dueDate,
+      LocalDate returnDate,
+      LocalDate loanDate,
       User user,
-      List<Book> books) {
+      Book books) {
     this.id = id;
+    this.status = status;
     this.dueDate = dueDate;
     this.returnDate = returnDate;
     this.loanDate = loanDate;
     this.user = user;
-    this.books = books;
+    this.book = books;
   }
 
-  // Getters and Setters
+  public void completeLoan() {
+    this.status = LoanStatus.RETURNED;
+    this.returnDate = LocalDate.now();
+  }
+
+  public void undoLoan() {
+    this.status = LoanStatus.BORROWED;
+    this.returnDate = null;
+  }
+
+  public void cancelLoan() {
+    this.status = LoanStatus.CANCELED;
+    this.returnDate = null;
+  }  
+  
   public int getId() {
     return id;
   }
@@ -82,27 +108,35 @@ public class Loan implements Serializable {
     this.id = id;
   }
 
-  public LocalDateTime getDueDate() {
+  public LoanStatus getStatus() {
+    return status;
+  }
+
+  public void setStatus(LoanStatus status) {
+    this.status = status;
+  }
+
+  public LocalDate getDueDate() {
     return dueDate;
   }
 
-  public void setDueDate(LocalDateTime dueDate) {
+  public void setDueDate(LocalDate dueDate) {
     this.dueDate = dueDate;
   }
 
-  public LocalDateTime getReturnDate() {
+  public LocalDate getReturnDate() {
     return returnDate;
   }
 
-  public void setReturnDate(LocalDateTime returnDate) {
+  public void setReturnDate(LocalDate returnDate) {
     this.returnDate = returnDate;
   }
 
-  public LocalDateTime getLoanDate() {
+  public LocalDate getLoanDate() {
     return loanDate;
   }
 
-  public void setLoanDate(LocalDateTime loanDate) {
+  public void setLoanDate(LocalDate loanDate) {
     this.loanDate = loanDate;
   }
 
@@ -114,11 +148,11 @@ public class Loan implements Serializable {
     this.user = user;
   }
 
-  public List<Book> getBooks() {
-    return books;
+  public Book getBook() {
+    return book;
   }
 
-  public void setBooks(List<Book> books) {
-    this.books = books;
+  public void setBook(Book book) {
+    this.book = book;
   }
 }

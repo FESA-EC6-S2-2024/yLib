@@ -12,7 +12,7 @@
 	<artifactId>yLib</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>yLib</name>
-	<description> Sistema projetado para gerenciar as operações de uma biblioteca</description>
+	<description>Sistema projetado para gerenciar as operações de uma biblioteca</description>
 	<url/>
 	<licenses>
 		<license/>

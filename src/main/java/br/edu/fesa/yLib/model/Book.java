@@ -12,6 +12,7 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PositiveOrZero;
 import jakarta.validation.constraints.Size;
 import java.io.Serializable;
 import org.hibernate.validator.constraints.Length;
@@ -50,7 +51,7 @@ public class Book implements Serializable {
   @Column(name = "PUBLISHED_YEAR", nullable = false)
   private int publishedYear;
 
-  @Positive(message = "Available units must be positive.")
+  @PositiveOrZero(message = "Available units must be positive or zero.")
   @Column(name = "AVAILABLE_UNITS", nullable = false)
   private int availableUnits;
 
@@ -122,7 +123,22 @@ public class Book implements Serializable {
     this.image = image;
   }
 
-  // Getters e Setters
+  public boolean isAvailable() {
+    return availableUnits > 0;
+  }
+
+  public void borrowBook() {
+    availableUnits--;
+  }
+
+  public void returnBook() {
+    availableUnits++;
+  }
+
+  public void undoBorrowBook() {
+    availableUnits--;
+  }
+
   public int getId() {
     return id;
   }

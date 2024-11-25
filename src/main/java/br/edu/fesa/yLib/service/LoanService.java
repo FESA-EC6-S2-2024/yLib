@@ -1,39 +1,81 @@
 package br.edu.fesa.yLib.service;
 
+import br.edu.fesa.yLib.exception.BookNotAvailableException;
+import br.edu.fesa.yLib.model.Book;
 import br.edu.fesa.yLib.model.Loan;
+import br.edu.fesa.yLib.repository.BookRepository;
 import br.edu.fesa.yLib.repository.LoanRepository;
+import jakarta.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-public class LoanService implements GenericService<Loan, Integer> {
+public class LoanService {
 
   @Autowired
   private LoanRepository loanRepository;
+
+  @Autowired
+  private BookRepository bookRepository;
 
   public List<Loan> findAll() {
     return loanRepository.findAll();
   }
 
-  public Loan findById(Integer id) {
-    return loanRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Loan not found"));
+  public List<Loan> findAllByUserId(int userId) {
+    return loanRepository.findByUserId(userId);
   }
 
   @Transactional
-  public Loan save(Loan loan) {
+  public Loan createLoan(@Valid Loan loan) throws BookNotAvailableException {
+    Book book = loan.getBook();
+
+    if (!book.isAvailable()) {
+      throw new BookNotAvailableException();
+    }
+
+    book.borrowBook();
+    bookRepository.save(book);
+
     return loanRepository.save(loan);
   }
 
   @Transactional
-  public void update(Integer id, Loan loanDetails) {
-    throw new UnsupportedOperationException();
+  public Loan completeLoan(int loanId) {
+    Loan loan = loanRepository.findById(loanId).get();
+    
+    Book book = loan.getBook();
+    book.returnBook();
+    bookRepository.save(book);
+
+    loan.completeLoan();
+    return loanRepository.save(loan);
   }
 
   @Transactional
-  public void delete(Integer id) {
-    Loan loan = findById(id);
-    loanRepository.delete(loan);
+  public Loan undoLoan(int loanId) {
+    Loan loan = loanRepository.findById(loanId).get();
+    
+    Book book = loan.getBook();
+    book.undoBorrowBook();
+    bookRepository.save(book);
+
+    loan.undoLoan();
+    return loanRepository.save(loan);
+  }
+
+  @Transactional
+  public Loan canceLoan(int loanId) {
+    Loan loan = loanRepository.findById(loanId).get();
+    
+    Book book = loan.getBook();
+    book.returnBook();
+    bookRepository.save(book);
+
+    loan.cancelLoan();
+    return loanRepository.save(loan);
   }
 }

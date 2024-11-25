@@ -30,13 +30,16 @@ public class BookService {
     return bookRepository.findAll();
   }
 
+  public List<Book> findAllAvailable() {
+    return bookRepository.findByAvailableUnitsGreaterThan(0);
+  }
+
   public Optional<Book> findById(int id) {
     return bookRepository.findById(id);
   }
 
   @Transactional
   public Book createBook(@Valid Book book) {
-
     return bookRepository.save(book);
   }
 

@@ -53,8 +53,6 @@ public class BooksController {
     @GetMapping("/create")
     public String showCreateForm(Model model) {
         model.addAttribute("book", new Book());
-        var a = genreService.findAll();
-
         model.addAttribute("genres", genreService.findAll());
         model.addAttribute("authors", authorService.findAll());
         model.addAttribute("editors", editorService.findAll());
@@ -62,7 +60,7 @@ public class BooksController {
     }
 
     @PostMapping("/create")
-    public String createBook(@Valid @ModelAttribute("book") Book book, BindingResult result, Model model) {
+    public String createBook(@Valid @ModelAttribute Book book, BindingResult result, Model model) {
         if (result.hasErrors()) {
             model.addAttribute("genres", genreService.findAll());
             model.addAttribute("authors", authorService.findAll());
@@ -87,7 +85,7 @@ public class BooksController {
     }
 
     @PostMapping("/edit/{id}")
-    public String updateBook(@PathVariable int id, @Valid @ModelAttribute("book") Book book, BindingResult result, Model model) {
+    public String updateBook(@PathVariable int id, @Valid @ModelAttribute Book book, BindingResult result, Model model) {
         if (result.hasErrors()) {
             model.addAttribute("genres", genreService.findAll());
             model.addAttribute("authors", authorService.findAll());
@@ -104,6 +102,7 @@ public class BooksController {
         return "redirect:/books";
     }
 
+    @PreAuthorize("hasAnyRole('CLIENT', 'ADMIN', 'LIBRARIAN')")
     @GetMapping("/search")
     public String searchBooks(@ModelAttribute BookSearchOptionsDto searchOptions, Model model) {
         BookSearchResultDto result = bookService.searchBooks(
