@@ -92,4 +92,8 @@ public class UserService {
   public void deleteUser(UUID id) {
     userRepository.deleteById(id);
   }
+
+  public int countUsers() {
+    return userRepository.countBy();
+  }
 }

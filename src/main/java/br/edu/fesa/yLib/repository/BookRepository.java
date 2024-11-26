@@ -16,4 +16,10 @@ public interface BookRepository extends JpaRepository<Book, UUID>, JpaSpecificat
   Optional<Book> findById(UUID id);
 
   List<Book> findByAvailableUnitsGreaterThan(int units);
+
+  int countBy();
+
+  int countByAvailableUnitsGreaterThan(int units);
+
+  int countByAvailableUnitsEquals(int units);
 }

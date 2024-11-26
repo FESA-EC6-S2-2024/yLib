@@ -84,7 +84,7 @@ public class LoansController {
 
   @GetMapping("/cancel/{id}")
   public String deleteLoan(@PathVariable UUID id) {
-    loanService.canceLoan(id);
+    loanService.cancelLoan(id);
     return "redirect:/loans";
   }
 }
