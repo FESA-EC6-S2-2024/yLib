@@ -36,12 +36,13 @@
     <div sec:authorize="hasRole('ADMIN')">
       <div class="stats stats-vertical md:stats-horizontal shadow">
         <div class="stat">
-          <div class="stat-figure text-secondary">
-            <!-- <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+          <div class="stat-figure text-purple-600">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
               class="inline-block h-8 w-8 stroke-current">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                 d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-            </svg> -->
+            </svg>
+
 
           </div>
           <div class="stat-title">Available Books</div>
@@ -50,7 +51,7 @@
         </div>
 
         <div class="stat stat-vertical">
-          <div class="stat-figure text-secondary">
+          <div class="stat-figure text-purple-700">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
               class="inline-block h-8 w-8 stroke-current">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -64,7 +65,7 @@
         </div>
 
         <div class="stat">
-          <div class="stat-figure text-secondary">
+          <div class="stat-figure text-purple-800">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
               class="inline-block h-8 w-8 stroke-current">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -76,10 +77,10 @@
           <div class="stat-desc">Total: <span th:text="${totalLoans}"></span></div>
         </div>
       </div>
-      <canvas id="chart-1"></canvas>
-      <canvas id="chart-2"></canvas>
-      <div>
-
+      
+      <div class="grid">
+        <canvas id="chart-1"></canvas>
+        <canvas id="chart-2"></canvas>
       </div>
     </div>
 
@@ -87,7 +88,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
     <script type="text/javascript" src="jscript/graph.js"></script>
 
-    <script th:inline="javascript">
+    <!-- <script th:inline="javascript">
       const months = /*[[${loansByMonth.months}]]*/[];
       const counts = /*[[${loansByMonth.counts}]]*/[];
 
@@ -97,8 +98,8 @@
           {
             label: 'Loans by Month',
             data: counts,
-            borderColor: 'rgb(255, 99, 132)',
-            backgroundColor: 'rgb(255, 99, 132)',
+            borderColor: '#a855f7',
+            backgroundColor: '#a855f7',
             fill: false
           }
         ]
@@ -134,7 +135,7 @@
       const myChart = new Chart(
         document.getElementById('chart-1'), config
       );
-    </script>
+    </script> -->
 
     <script th:inline="javascript">
       const genres = /*[[${loansByGenre.genres}]]*/[];
@@ -146,8 +147,8 @@
           {
             label: 'Loans by Genre',
             data: counts2,
-            borderColor: 'rgb(255, 99, 132)',
-            backgroundColor: 'rgb(255, 99, 132)',
+            borderColor: '#c084fc',
+            backgroundColor: '#c084fc',
             fill: false
           }
         ]
