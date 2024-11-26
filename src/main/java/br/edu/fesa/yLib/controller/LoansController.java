@@ -44,7 +44,7 @@ public class LoansController {
 
   @GetMapping("/create")
   public String showCreateForm(Model model) {
-    model.addAttribute("loan", new Loan());
+    model.addAttribute("loan", Loan.builder().build());
     model.addAttribute("books", bookService.findAllAvailable());
     model.addAttribute("users", userService.findAllUsers());
 

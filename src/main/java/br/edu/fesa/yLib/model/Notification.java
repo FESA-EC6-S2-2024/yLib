@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.UUID;
 import lombok.*;
+import org.hibernate.annotations.UuidGenerator;
 
 /**
  * @author Grupo_7
@@ -20,7 +21,7 @@ public class Notification implements Serializable {
   private static final long serialVersionUID = 2L;
 
   @Id
-  @GeneratedValue(strategy = GenerationType.UUID)
+  @UuidGenerator
   @Column(name = "ID_NOTIFICATION", columnDefinition = "uuid", updatable = false, nullable = false)
   private UUID id;
 

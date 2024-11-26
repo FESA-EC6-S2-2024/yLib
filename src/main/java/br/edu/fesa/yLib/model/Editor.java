@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.util.UUID;
 import lombok.*;
+import org.hibernate.annotations.UuidGenerator;
 
 /**
  * @author Grupo_7
@@ -20,7 +21,7 @@ public class Editor implements Serializable {
   private static final long serialVersionUID = 1L;
 
   @Id
-  @GeneratedValue(strategy = GenerationType.UUID)
+  @UuidGenerator
   @Column(name = "ID_EDITOR", columnDefinition = "UUID", updatable = false, nullable = false)
   private UUID id;
 

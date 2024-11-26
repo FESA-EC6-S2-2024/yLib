@@ -5,6 +5,7 @@ import jakarta.validation.constraints.*;
 import java.io.Serializable;
 import java.util.UUID;
 import lombok.*;
+import org.hibernate.annotations.UuidGenerator;
 import org.hibernate.validator.constraints.Length;
 
 /**
@@ -21,7 +22,7 @@ public class Book implements Serializable {
   private static final long serialVersionUID = 1L;
 
   @Id
-  @GeneratedValue(strategy = GenerationType.UUID)
+  @UuidGenerator
   @Column(name = "ID_BOOK", columnDefinition = "UUID", updatable = false, nullable = false)
   private UUID id;
 

@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 import lombok.*;
+import org.hibernate.annotations.UuidGenerator;
 
 /**
  * @author Grupo_7
@@ -24,7 +25,7 @@ public class User implements Serializable {
   private static final long serialVersionUID = 1L;
 
   @Id
-  @GeneratedValue(strategy = GenerationType.UUID)
+  @UuidGenerator
   @Column(name = "ID_USER", columnDefinition = "UUID", updatable = false, nullable = false)
   private UUID id;
 

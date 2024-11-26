@@ -34,7 +34,7 @@ public class UsersController {
   // Exibe o formulário para criar um novo usuário
   @GetMapping("/create")
   public String showCreateUserForm(Model model) {
-    model.addAttribute("user", new User());
+    model.addAttribute("user", User.builder().build());
     model.addAttribute("userTypes", UserType.values());
     return "users/create";
   }

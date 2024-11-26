@@ -3,6 +3,9 @@ package br.edu.fesa.yLib.dto;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Grupo_7
+ */
 public class LoanCountByGenreDto {
   List<String> genres;
   List<Long> counts;

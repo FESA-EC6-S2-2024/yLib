@@ -29,7 +29,7 @@ public class GenresController {
 
   @GetMapping("/create")
   public String showCreateForm(Model model) {
-    model.addAttribute("genre", new Genre());
+    model.addAttribute("genre", Genre.builder().build());
     return "genres/create";
   }
 

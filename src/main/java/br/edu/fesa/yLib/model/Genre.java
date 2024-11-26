@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import java.io.Serializable;
 import java.util.UUID;
 import lombok.*;
+import org.hibernate.annotations.UuidGenerator;
 
 /**
  * @author Grupo_7
@@ -19,7 +20,7 @@ public class Genre implements Serializable {
   private static final long serialVersionUID = 2L;
 
   @Id
-  @GeneratedValue(strategy = GenerationType.UUID)
+  @UuidGenerator
   @Column(name = "ID_GENRE", columnDefinition = "uuid", updatable = false, nullable = false)
   private UUID id;
 

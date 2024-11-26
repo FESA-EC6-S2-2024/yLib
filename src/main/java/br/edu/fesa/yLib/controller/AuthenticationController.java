@@ -44,7 +44,7 @@ public class AuthenticationController {
   public String register(Model model) {
     if (isAuthenticated()) return "index";
 
-    model.addAttribute("user", new User());
+    model.addAttribute("user", User.builder().build());
     return "auth/register";
   }
 
@@ -59,7 +59,6 @@ public class AuthenticationController {
 
     try {
       user.setUserType(UserType.CLIENT);
-      user.setRegistrationDate(LocalDateTime.now());
       userService.registerUser(user);
     } catch (UserWithEmailAlreadyExistsException e) {
       result.rejectValue("email", "error.user", "Email already exists");

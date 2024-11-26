@@ -29,7 +29,7 @@ public class AuthorsController {
 
   @GetMapping("/create")
   public String showCreateForm(Model model) {
-    model.addAttribute("author", new Author());
+    model.addAttribute("author", Author.builder().build());
     return "authors/create";
   }
 

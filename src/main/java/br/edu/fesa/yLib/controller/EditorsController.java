@@ -29,7 +29,7 @@ public class EditorsController {
 
   @GetMapping("/create")
   public String showCreateForm(Model model) {
-    model.addAttribute("editor", new Editor());
+    model.addAttribute("editor", Editor.builder().build());
     return "editors/create";
   }
 

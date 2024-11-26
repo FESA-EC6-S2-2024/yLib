@@ -49,7 +49,7 @@ public class BooksController {
 
   @GetMapping("/create")
   public String showCreateForm(Model model) {
-    model.addAttribute("book", new Book());
+    model.addAttribute("book", Book.builder().build());
     model.addAttribute("genres", genreService.findAll());
     model.addAttribute("authors", authorService.findAll());
     model.addAttribute("editors", editorService.findAll());
