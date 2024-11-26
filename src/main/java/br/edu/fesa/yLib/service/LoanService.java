@@ -1,16 +1,22 @@
 package br.edu.fesa.yLib.service;
 
+import br.edu.fesa.yLib.dto.GenreLoansQueryResult;
+import br.edu.fesa.yLib.dto.LoanCountByGenreDto;
+import br.edu.fesa.yLib.dto.LoanCountByMonthDto;
+import br.edu.fesa.yLib.dto.MonthLoanCountQueryResult;
+import br.edu.fesa.yLib.enumerator.LoanStatus;
 import br.edu.fesa.yLib.exception.BookNotAvailableException;
 import br.edu.fesa.yLib.model.Book;
 import br.edu.fesa.yLib.model.Loan;
 import br.edu.fesa.yLib.repository.BookRepository;
 import br.edu.fesa.yLib.repository.LoanRepository;
+
+import java.util.List;
 import jakarta.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import java.util.List;
 
 @Service
 public class LoanService {
@@ -68,7 +74,7 @@ public class LoanService {
   }
 
   @Transactional
-  public Loan canceLoan(int loanId) {
+  public Loan cancelLoan(int loanId) {
     Loan loan = loanRepository.findById(loanId).get();
     
     Book book = loan.getBook();
@@ -77,5 +83,37 @@ public class LoanService {
 
     loan.cancelLoan();
     return loanRepository.save(loan);
+  }
+
+  public int countLoans() {
+    return loanRepository.countBy();
+  }
+
+  public int countActiveLoans() {
+    return loanRepository.countByStatus(LoanStatus.BORROWED);
+  }
+
+  public LoanCountByMonthDto countLoansInCurrentYearByMonth() {
+    List<MonthLoanCountQueryResult> res = loanRepository.countLoansByMonthCurrentYear();
+    LoanCountByMonthDto dto = new LoanCountByMonthDto();
+
+    for (MonthLoanCountQueryResult item : res) {
+      dto.addMonth(item.getLoanMonth());
+      dto.addCount(item.getTotalLoans());
+    }
+
+    return dto;
+  }
+
+  public LoanCountByGenreDto countLoansByGenre() {
+    List<GenreLoansQueryResult> res = loanRepository.countByBookGenre();
+    LoanCountByGenreDto dto = new LoanCountByGenreDto();
+
+    for (GenreLoansQueryResult genreLoansQueryResult : res) {
+      dto.addGenre(genreLoansQueryResult.getGenre());
+      dto.addCount(genreLoansQueryResult.getTotalLoans());
+    }
+
+    return dto;
   }
 }

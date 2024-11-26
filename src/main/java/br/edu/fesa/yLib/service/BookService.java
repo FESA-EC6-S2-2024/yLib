@@ -83,4 +83,16 @@ public class BookService {
     
     return new BookSearchResultDto(result, count);
   }
+
+  public int countBooks() {
+    return bookRepository.countBy();
+  }
+
+  public int countAvailableBooks() {
+    return bookRepository.countByAvailableUnitsGreaterThan(0);
+  }
+
+  public int countUnavailableBooks() {
+    return bookRepository.countByAvailableUnitsEquals(0);
+  }
 }

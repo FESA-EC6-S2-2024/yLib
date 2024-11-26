@@ -16,4 +16,10 @@ import org.springframework.stereotype.Repository;
 public interface BookRepository extends JpaRepository<Book, Integer>, JpaSpecificationExecutor<Book> {
   Optional<Book> findById(int id);
   List<Book> findByAvailableUnitsGreaterThan(int units);
+
+  int countBy();
+
+  int countByAvailableUnitsGreaterThan(int units);
+
+  int countByAvailableUnitsEquals(int units);
 }
