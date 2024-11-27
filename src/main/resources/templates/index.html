@@ -86,57 +86,6 @@
 
     <script type="module" src="https://cdn.jsdelivr.net/npm/chart.js@4.3.0/dist/chart.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
-    <script type="text/javascript" src="jscript/graph.js"></script>
-
-    <!-- <script th:inline="javascript">
-      const months = /*[[${loansByMonth.months}]]*/[];
-      const counts = /*[[${loansByMonth.counts}]]*/[];
-
-      const data = {
-        labels: months,
-        datasets: [
-          {
-            label: 'Loans by Month',
-            data: counts,
-            borderColor: '#a855f7',
-            backgroundColor: '#a855f7',
-            fill: false
-          }
-        ]
-      }
-
-      const config = {
-        type: 'line',
-        data: data,
-        options: {
-          animations: {
-            radius: {
-              duration: 400,
-              easing: 'linear',
-              loop: (context) => context.active
-            }
-          },
-          devicePixelRatio: 4,
-          plugins: {
-            filler: {
-              propagate: false,
-            },
-            title: {
-              display: true,
-              text: (ctx) => 'Fill: ' + ctx.chart.data.datasets[0].fill
-            }
-          },
-          interaction: {
-            intersect: false,
-          }
-        },
-      };
-
-      const myChart = new Chart(
-        document.getElementById('chart-1'), config
-      );
-    </script> -->
-
     <script th:inline="javascript">
       const genres = /*[[${loansByGenre.genres}]]*/[];
       const counts2 = /*[[${loansByGenre.counts}]]*/[];
@@ -152,38 +101,48 @@
             fill: false
           }
         ]
-      }
+      };
 
       const config2 = {
         type: 'bar',
         data: data2,
         options: {
-          animations: {
-            radius: {
-              duration: 400,
-              easing: 'linear',
-              loop: (context) => context.active
-            }
+          scales: {
+            yAxes: [
+              {
+                ticks: {
+                  beginAtZero: true // Configura o eixo Y para começar em 0
+                }
+              }
+            ],
+            xAxes: [
+              {
+                ticks: {
+                  autoSkip: false // Exemplo: evita omitir rótulos (opcional)
+                }
+              }
+            ]
           },
-          plugins: {
-            filler: {
-              propagate: false,
-            },
-            title: {
-              display: true,
-              text: (ctx) => 'Fill: ' + ctx.chart.data.datasets[0].fill
-            }
+          animation: {
+            duration: 400,
+            easing: 'linear'
           },
-          interaction: {
-            intersect: false,
+          title: {
+            display: true,
+            text: 'Loans by Genre'
+          },
+          tooltips: {
+            intersect: false
           }
-        },
+        }
       };
 
       const barChart = new Chart(
-        document.getElementById('chart-2'), config2
+        document.getElementById('chart-2'),
+        config2
       );
     </script>
+
   </section>
 </body>
 
