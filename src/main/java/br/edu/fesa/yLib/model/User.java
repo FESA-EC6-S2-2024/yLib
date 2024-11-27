@@ -20,6 +20,8 @@ import org.hibernate.annotations.UuidGenerator;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Getter
+@Setter
 public class User implements Serializable {
 
   private static final long serialVersionUID = 1L;
@@ -56,7 +58,7 @@ public class User implements Serializable {
   @Enumerated(EnumType.STRING)
   @NotNull(message = "User type is required.")
   @Column(name = "USER_TYPE", nullable = false)
-  private UserType userType;
+  private UserType userType = UserType.CLIENT; // default type
 
   @Enumerated(EnumType.STRING)
   @Column(name = "USER_GENDER", nullable = false)
