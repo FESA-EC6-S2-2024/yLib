@@ -54,6 +54,19 @@
               />
               <p class="text-red-500 text-xs mt-1" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email error</p>
             </div>
+
+            <div class="mb-4 form-control w-full">
+              <div class="label">
+                <span class="label-text">Confirm Email</span>
+              </div>
+              <input
+                type="email"
+                th:field="*{confirmEmail}"
+                id="confirmEmail"
+                class="input input-bordered w-full"
+              />
+              <p class="text-red-500 text-xs mt-1" th:if="${#fields.hasErrors('confirmEmail')}" th:errors="*{confirmEmail}">Email error</p>
+            </div>
           </div>
 
           <!-- Column 2 -->
